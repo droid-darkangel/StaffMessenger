@@ -9,6 +9,9 @@ on:
 permissions:
   contents: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   linux-and-windows:
     runs-on: ubuntu-latest
@@ -77,4 +80,4 @@ jobs:
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" release-files/* --generate-notes --verify-tag
+        run: gh release create "$GITHUB_REF_NAME" release-files/* --repo "$GITHUB_REPOSITORY" --generate-notes --verify-tag
