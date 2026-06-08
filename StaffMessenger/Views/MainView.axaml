@@ -1,0 +1,1547 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:StaffMessenger.Models"
+             xmlns:auth="using:StaffMessenger.Contracts.Auth"
+             xmlns:vm="using:StaffMessenger.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="1440"
+             d:DesignHeight="900"
+             x:Name="Root"
+             Classes.dark="{Binding IsDarkTheme}"
+             x:Class="StaffMessenger.Views.MainView"
+             x:DataType="vm:MainViewModel">
+  <Design.DataContext>
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+  <UserControl.Styles>
+    <Style Selector="TextBlock.h1">
+      <Setter Property="FontSize" Value="23" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#162033" />
+      <Setter Property="LetterSpacing" Value="0" />
+    </Style>
+    <Style Selector="TextBlock.h2">
+      <Setter Property="FontSize" Value="17" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#162033" />
+      <Setter Property="LetterSpacing" Value="0" />
+    </Style>
+    <Style Selector="TextBlock.body">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="Foreground" Value="#293447" />
+      <Setter Property="LineHeight" Value="20" />
+      <Setter Property="LetterSpacing" Value="0" />
+    </Style>
+    <Style Selector="TextBlock.muted">
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="#66758A" />
+      <Setter Property="LineHeight" Value="17" />
+      <Setter Property="LetterSpacing" Value="0" />
+    </Style>
+    <Style Selector="TextBlock.micro">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="#7C8898" />
+      <Setter Property="LetterSpacing" Value="0" />
+    </Style>
+    <Style Selector="TextBlock.validation">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="#64748B" />
+      <Setter Property="LetterSpacing" Value="0" />
+    </Style>
+    <Style Selector="Border.shell">
+      <Setter Property="Background" Value="#D8FFFFFF" />
+      <Setter Property="BorderBrush" Value="#F4FFFFFF" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="24" />
+      <Setter Property="BoxShadow" Value="18 18 48 0 #16233143, -14 -14 32 0 #CFFFFFFF, 0 1 0 0 #90FFFFFF" />
+    </Style>
+    <Style Selector="Border.panel">
+      <Setter Property="Background" Value="#CCFFFFFF" />
+      <Setter Property="BorderBrush" Value="#F0FFFFFF" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="18" />
+      <Setter Property="BoxShadow" Value="9 9 24 0 #12233143, -8 -8 22 0 #B8FFFFFF" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Opacity" Duration="0:0:0.18" />
+        </Transitions>
+      </Setter>
+    </Style>
+    <Style Selector="Border.previewSurface">
+      <Setter Property="Background" Value="#E8FFFFFF" />
+      <Setter Property="BorderBrush" Value="#F4FFFFFF" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="22" />
+      <Setter Property="BoxShadow" Value="16 16 44 0 #1A0F172A, -12 -12 28 0 #AFFFFFFF" />
+    </Style>
+    <Style Selector="Border.avatar">
+      <Setter Property="Width" Value="44" />
+      <Setter Property="Height" Value="44" />
+      <Setter Property="CornerRadius" Value="13" />
+    </Style>
+    <Style Selector="Button.primary">
+      <Setter Property="MinHeight" Value="44" />
+      <Setter Property="MinWidth" Value="112" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="Padding" Value="18,10" />
+      <Setter Property="Background" Value="#2563EB" />
+      <Setter Property="Foreground" Value="White" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Opacity" Duration="0:0:0.16" />
+        </Transitions>
+      </Setter>
+    </Style>
+    <Style Selector="Button.primary:pointerover">
+      <Setter Property="Background" Value="#1D4ED8" />
+    </Style>
+    <Style Selector="Button.tool">
+      <Setter Property="MinHeight" Value="40" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="Padding" Value="13,8" />
+      <Setter Property="Background" Value="#E8FFFFFF" />
+      <Setter Property="BorderBrush" Value="#F1FFFFFF" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Foreground" Value="#334155" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Opacity" Duration="0:0:0.16" />
+        </Transitions>
+      </Setter>
+    </Style>
+    <Style Selector="Button.tool:pointerover">
+      <Setter Property="Background" Value="#FFFFFF" />
+      <Setter Property="BorderBrush" Value="#C9D8EA" />
+    </Style>
+    <Style Selector="Button.danger">
+      <Setter Property="MinHeight" Value="34" />
+      <Setter Property="CornerRadius" Value="11" />
+      <Setter Property="Padding" Value="11,7" />
+      <Setter Property="Background" Value="#FFF1F2" />
+      <Setter Property="BorderBrush" Value="#FFD2D6" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Foreground" Value="#B4232A" />
+      <Setter Property="FontWeight" Value="Medium" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+    <Style Selector="TextBox.search">
+      <Setter Property="MinHeight" Value="42" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="Padding" Value="14,9" />
+      <Setter Property="Background" Value="#DFFFFFFF" />
+      <Setter Property="BorderBrush" Value="#E8F0F8" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Foreground" Value="#172033" />
+    </Style>
+    <Style Selector="TextBox.composer">
+      <Setter Property="MinHeight" Value="48" />
+      <Setter Property="MaxHeight" Value="150" />
+      <Setter Property="CornerRadius" Value="14" />
+      <Setter Property="Padding" Value="14,11" />
+      <Setter Property="Background" Value="#EFFFFFFF" />
+      <Setter Property="BorderBrush" Value="#D7E2EE" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Foreground" Value="#172033" />
+    </Style>
+    <Style Selector="ComboBox.select">
+      <Setter Property="MinHeight" Value="42" />
+      <Setter Property="CornerRadius" Value="12" />
+      <Setter Property="Padding" Value="12,8" />
+      <Setter Property="Background" Value="#EFFFFFFF" />
+      <Setter Property="BorderBrush" Value="#DDE7F2" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Foreground" Value="#172033" />
+    </Style>
+    <Style Selector="ListBox.chats">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="ListBox.chats ListBoxItem">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="0,0,0,8" />
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderBrush" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+    <Style Selector="ListBox.chats ListBoxItem /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <Style Selector="ListBox.chats ListBoxItem:pointerover Border.chatRow">
+      <Setter Property="Background" Value="#F8FBFF" />
+      <Setter Property="BorderBrush" Value="#DCE8F6" />
+    </Style>
+    <Style Selector="ListBox.chats ListBoxItem:selected Border.chatRow">
+      <Setter Property="Background" Value="#EFF6FF" />
+      <Setter Property="BorderBrush" Value="#9FC5FF" />
+    </Style>
+    <Style Selector="ListBox.chats ListBoxItem Border.activeStripe">
+      <Setter Property="Background" Value="#002563EB" />
+    </Style>
+    <Style Selector="ListBox.chats ListBoxItem:selected Border.activeStripe">
+      <Setter Property="Background" Value="#2563EB" />
+    </Style>
+    <Style Selector="Border.message">
+      <Setter Property="MaxWidth" Value="640" />
+      <Setter Property="Padding" Value="13,11" />
+      <Setter Property="CornerRadius" Value="16" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="Transitions">
+        <Transitions>
+          <DoubleTransition Property="Opacity" Duration="0:0:0.18" />
+        </Transitions>
+      </Setter>
+    </Style>
+    <Style Selector="Border.message.incoming">
+      <Setter Property="HorizontalAlignment" Value="Left" />
+      <Setter Property="Background" Value="#DFFFFFFF" />
+      <Setter Property="BorderBrush" Value="#F3FFFFFF" />
+      <Setter Property="BoxShadow" Value="10 10 26 0 #10233143, -7 -7 20 0 #BAFFFFFF" />
+    </Style>
+    <Style Selector="Border.message.outgoing">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="Background" Value="#DCEBFFFF" />
+      <Setter Property="BorderBrush" Value="#BFD8FF" />
+      <Setter Property="BoxShadow" Value="10 10 26 0 #162563EB, -7 -7 20 0 #AAFFFFFF" />
+    </Style>
+    <Style Selector="Button.attachmentPreview">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+    <Style Selector="Button.attachmentPreview:pointerover">
+      <Setter Property="Opacity" Value="0.9" />
+    </Style>
+    <Style Selector="UserControl.dark TextBlock.h1">
+      <Setter Property="Foreground" Value="#F8FAFC" />
+    </Style>
+    <Style Selector="UserControl.dark TextBlock.h2">
+      <Setter Property="Foreground" Value="#F8FAFC" />
+    </Style>
+    <Style Selector="UserControl.dark TextBlock.body">
+      <Setter Property="Foreground" Value="#E5E7EB" />
+    </Style>
+    <Style Selector="UserControl.dark TextBlock.muted">
+      <Setter Property="Foreground" Value="#A8B3C2" />
+    </Style>
+    <Style Selector="UserControl.dark TextBlock.micro">
+      <Setter Property="Foreground" Value="#94A3B8" />
+    </Style>
+    <Style Selector="UserControl.dark TextBlock.validation">
+      <Setter Property="Foreground" Value="#93C5FD" />
+    </Style>
+    <Style Selector="UserControl.dark Border.shell">
+      <Setter Property="BorderBrush" Value="#263445" />
+      <Setter Property="BoxShadow" Value="18 18 54 0 #00000066, -10 -10 26 0 #24324444" />
+    </Style>
+    <Style Selector="UserControl.dark Border.panel">
+      <Setter Property="Background" Value="#CC111827" />
+      <Setter Property="BorderBrush" Value="#243244" />
+      <Setter Property="BoxShadow" Value="10 10 30 0 #00000055, -6 -6 18 0 #26344533" />
+    </Style>
+    <Style Selector="UserControl.dark TextBox.search">
+      <Setter Property="Background" Value="#182233" />
+      <Setter Property="BorderBrush" Value="#334155" />
+      <Setter Property="Foreground" Value="#F8FAFC" />
+    </Style>
+    <Style Selector="UserControl.dark TextBox.composer">
+      <Setter Property="Background" Value="#111827" />
+      <Setter Property="BorderBrush" Value="#334155" />
+      <Setter Property="Foreground" Value="#F8FAFC" />
+    </Style>
+    <Style Selector="UserControl.dark ComboBox.select">
+      <Setter Property="Background" Value="#182233" />
+      <Setter Property="BorderBrush" Value="#334155" />
+      <Setter Property="Foreground" Value="#F8FAFC" />
+    </Style>
+    <Style Selector="UserControl.dark CheckBox">
+      <Setter Property="Foreground" Value="#E5E7EB" />
+    </Style>
+    <Style Selector="UserControl.dark Button.tool">
+      <Setter Property="Background" Value="#182233" />
+      <Setter Property="BorderBrush" Value="#334155" />
+      <Setter Property="Foreground" Value="#E5E7EB" />
+    </Style>
+    <Style Selector="UserControl.dark Button.tool:pointerover">
+      <Setter Property="Background" Value="#223047" />
+      <Setter Property="BorderBrush" Value="#60A5FA" />
+    </Style>
+    <Style Selector="UserControl.dark Border.message.incoming">
+      <Setter Property="BorderBrush" Value="#334155" />
+      <Setter Property="BoxShadow" Value="10 10 26 0 #00000055" />
+    </Style>
+    <Style Selector="UserControl.dark Border.message.outgoing">
+      <Setter Property="BorderBrush" Value="#60A5FA" />
+      <Setter Property="BoxShadow" Value="10 10 26 0 #00000060" />
+    </Style>
+    <Style Selector="UserControl.dark ListBox.chats ListBoxItem:pointerover Border.chatRow">
+      <Setter Property="Background" Value="#172033" />
+      <Setter Property="BorderBrush" Value="#334155" />
+    </Style>
+    <Style Selector="UserControl.dark ListBox.chats ListBoxItem:selected Border.chatRow">
+      <Setter Property="Background" Value="#1D2A3D" />
+      <Setter Property="BorderBrush" Value="#60A5FA" />
+    </Style>
+  </UserControl.Styles>
+
+  <Border ClipToBounds="True">
+    <Border.Background>
+      <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+        <GradientStop Color="{Binding AppGradientStart}" Offset="0" />
+        <GradientStop Color="{Binding AppGradientMiddle}" Offset="0.48" />
+        <GradientStop Color="{Binding AppGradientEnd}" Offset="1" />
+      </LinearGradientBrush>
+    </Border.Background>
+
+    <Grid>
+      <Border Classes="shell"
+              IsVisible="{Binding IsAuthVisible}"
+              Background="{Binding ShellBrush}"
+              Width="480"
+              MaxWidth="520"
+              Padding="28"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+        <StackPanel Spacing="18">
+          <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+            <Border Classes="avatar" Width="56" Height="56" CornerRadius="16" Background="#2563EB">
+              <Image Source="/Assets/staffmessenger-logo.png" Stretch="UniformToFill" />
+            </Border>
+            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+              <TextBlock Text="StaffMessenger" Classes="h1" />
+              <TextBlock Text="Войдите один раз. Сессия сохранится локально." Classes="muted" TextWrapping="Wrap" />
+            </StackPanel>
+          </Grid>
+
+          <Border Classes="panel" Padding="14">
+            <StackPanel Spacing="12">
+              <TextBlock Text="Вход и регистрация" Classes="h2" />
+
+              <TextBox Classes="search"
+                       Text="{Binding AuthLogin, Mode=TwoWay}"
+                       PlaceholderText="Телефон или email" />
+
+              <TextBox Classes="search"
+                       PasswordChar="•"
+                       Text="{Binding AuthPassword, Mode=TwoWay}"
+                       PlaceholderText="Пароль" />
+
+              <TextBox Classes="search"
+                       IsVisible="{Binding IsTotpStepVisible}"
+                       Text="{Binding AuthTotpCode, Mode=TwoWay}"
+                       PlaceholderText="Одноразовый PIN 2FA" />
+
+              <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Classes="primary" Content="Войти" Command="{Binding SignInCommand}" />
+                <Button Grid.Column="1" Classes="tool" Content="Создать аккаунт" Command="{Binding RegisterCommand}" />
+              </Grid>
+
+              <TextBlock Text="{Binding AuthStatus}" Classes="muted" TextWrapping="Wrap" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </Border>
+
+      <Border Classes="shell" IsVisible="{Binding IsMessengerVisible}" Background="{Binding ShellBrush}" Margin="18" Padding="0">
+        <Grid ColumnDefinitions="344,*">
+          <Border Grid.Column="0" BorderBrush="{Binding SettingsDividerBrush}" BorderThickness="0,0,1,0" Padding="20,18">
+            <Grid RowDefinitions="Auto,Auto,*" RowSpacing="16">
+              <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                <Border Classes="avatar" Background="#2563EB">
+                  <Image Source="/Assets/staffmessenger-logo.png" Stretch="UniformToFill" />
+                </Border>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                  <TextBlock Text="StaffMessenger" Classes="h1" />
+                  <TextBlock Text="{Binding NetworkStatus}" Classes="muted" TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <Button Grid.Column="2" Classes="tool" MinWidth="42" Command="{Binding OpenSettingsCommand}" ToolTip.Tip="Настройки">
+                  <TextBlock Text="⚙" FontSize="16" HorizontalAlignment="Center" />
+                </Button>
+              </Grid>
+
+              <Grid Grid.Row="1" RowDefinitions="Auto,Auto" RowSpacing="8">
+                <TextBox Classes="search"
+                         Text="{Binding NewChatQuery, Mode=TwoWay}"
+                         PlaceholderText="Новый чат: имя или @username" />
+                <Border Grid.Row="1"
+                        IsVisible="{Binding IsSearchDropdownOpen}"
+                        Background="#FFFFFFFF"
+                        BorderBrush="#D7E2EE"
+                        BorderThickness="1"
+                        CornerRadius="14"
+                        Padding="8"
+                        BoxShadow="0 12 32 0 #18233143">
+                  <ItemsControl ItemsSource="{Binding SearchResults}">
+                    <ItemsControl.ItemsPanel>
+                      <ItemsPanelTemplate>
+                        <StackPanel Spacing="4" />
+                      </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate x:DataType="models:ProfileSearchResult">
+                        <Button Background="Transparent"
+                                BorderThickness="0"
+                                Padding="8"
+                                HorizontalContentAlignment="Stretch"
+                                Command="{Binding DataContext.CreateChatFromSearchCommand, ElementName=Root}"
+                                CommandParameter="{Binding}">
+                          <Grid ColumnDefinitions="38,*,Auto" ColumnSpacing="10">
+                            <Border Width="38" Height="38" CornerRadius="12" Background="{Binding Accent}">
+                              <TextBlock Text="{Binding Initials}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                              <TextBlock Text="{Binding DisplayName}" Classes="body" FontWeight="SemiBold" />
+                              <TextBlock Text="{Binding About}" Classes="micro" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                              <TextBlock Text="@" Classes="muted" />
+                              <TextBlock Text="{Binding Username}" Classes="muted" />
+                            </StackPanel>
+                          </Grid>
+                        </Button>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </Border>
+              </Grid>
+
+              <ListBox Grid.Row="2"
+                       Classes="chats"
+                       ItemsSource="{Binding Conversations}"
+                       SelectedItem="{Binding SelectedConversation}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate x:DataType="models:ConversationItem">
+                    <Border Classes="chatRow"
+                            Background="#00FFFFFF"
+                            BorderBrush="#00FFFFFF"
+                            BorderThickness="1"
+                            CornerRadius="14"
+                            Padding="0">
+                      <Grid ColumnDefinitions="4,48,*,Auto" ColumnSpacing="11">
+                        <Border Classes="activeStripe" CornerRadius="14,0,0,14" />
+                        <Border Grid.Column="1" Classes="avatar" Width="48" Height="48" Background="{Binding Accent}" Margin="10,10,0,10">
+                          <TextBlock Text="{Binding Initials}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Column="2" Spacing="3" VerticalAlignment="Center">
+                          <Grid ColumnDefinitions="*,Auto">
+                              <TextBlock Text="{Binding Title}" Classes="body" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Grid.Column="1" Text="{Binding TimeText}" Classes="micro" />
+                          </Grid>
+                          <TextBlock Text="{Binding LastPreview}" Classes="muted" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                        <Border Grid.Column="3"
+                                IsVisible="{Binding HasUnread}"
+                                MinWidth="24"
+                                Height="24"
+                                CornerRadius="12"
+                                Background="#2563EB"
+                                VerticalAlignment="Center"
+                                Margin="0,0,10,0">
+                          <TextBlock Text="{Binding UnreadCount}"
+                                     Foreground="White"
+                                     FontSize="11"
+                                     FontWeight="SemiBold"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center" />
+                        </Border>
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+            </Grid>
+          </Border>
+
+          <Grid Grid.Column="1" RowDefinitions="76,*,Auto" Background="{Binding ChatSurfaceBrush}">
+            <Border Padding="22,14" BorderBrush="{Binding SettingsDividerBrush}" BorderThickness="0,0,0,1">
+              <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                <Button Background="Transparent"
+                        BorderThickness="0"
+                        Padding="0"
+                        Command="{Binding OpenProfileViewerCommand}"
+                        ToolTip.Tip="Открыть профиль">
+                  <Border Classes="avatar" Background="{Binding SelectedConversationAccent}">
+                    <TextBlock Text="{Binding SelectedConversationInitials}" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                  </Border>
+                </Button>
+                <Button Grid.Column="1"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        Command="{Binding OpenProfileViewerCommand}"
+                        ToolTip.Tip="Открыть профиль">
+                  <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{Binding SelectedConversationTitle}" Classes="h2" />
+                    <TextBlock Text="{Binding SelectedConversationSubtitle}" Classes="muted" />
+                  </StackPanel>
+                </Button>
+                <Button Grid.Column="2" Classes="tool" MinWidth="42" Content="..." ToolTip.Tip="Действия с чатом">
+                  <Button.Flyout>
+                    <Flyout>
+                      <Border Background="#FFFFFF" BorderBrush="#D7E2EE" BorderThickness="1" CornerRadius="14" Padding="10" Width="220">
+                        <StackPanel Spacing="8">
+                          <TextBlock Text="Удалить чат" Classes="micro" FontWeight="SemiBold" />
+                          <Button Classes="tool" Content="Только у себя" Command="{Binding DeleteChatForMeCommand}" />
+                          <Button Classes="danger" Content="У всех участников" Command="{Binding DeleteChatForEveryoneCommand}" />
+                        </StackPanel>
+                      </Border>
+                    </Flyout>
+                  </Button.Flyout>
+                </Button>
+              </Grid>
+            </Border>
+
+            <ScrollViewer x:Name="MessagesScroller"
+                          Grid.Row="1"
+                          Padding="24,18,24,16"
+                          VerticalScrollBarVisibility="Auto">
+              <ItemsControl ItemsSource="{Binding ActiveMessages}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Spacing="{Binding MessageSpacing}" />
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="models:MessageItem">
+                    <Grid>
+                      <Border Classes="message incoming"
+                              IsVisible="{Binding IsIncoming}"
+                              Background="{Binding DataContext.IncomingMessageBrush, ElementName=Root}"
+                              Padding="{Binding DataContext.MessagePadding, ElementName=Root}"
+                              MaxWidth="{Binding DataContext.MessageMaxWidth, ElementName=Root}"
+                              Opacity="{Binding VisualOpacity}">
+                        <StackPanel Spacing="6">
+                          <TextBlock Text="{Binding Sender}" Classes="micro" FontWeight="SemiBold" />
+                          <ScrollViewer MaxHeight="430"
+                                        HorizontalScrollBarVisibility="Disabled"
+                                        VerticalScrollBarVisibility="Auto">
+                            <TextBlock Text="{Binding Text}"
+                                       Classes="body"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="{Binding DataContext.MessageTextMaxWidth, ElementName=Root}"
+                                       FontSize="{Binding DataContext.ChatFontSize, ElementName=Root}" />
+                          </ScrollViewer>
+                          <ItemsControl ItemsSource="{Binding Attachments}" IsVisible="{Binding HasAttachments}">
+                            <ItemsControl.ItemsPanel>
+                              <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="8" />
+                              </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate x:DataType="models:AttachmentPreview">
+                                <Button Classes="attachmentPreview"
+                                        Command="{Binding DataContext.OpenAttachmentPreviewCommand, ElementName=Root}"
+                                        CommandParameter="{Binding}">
+                                  <Border Background="#DFFFFFFF" BorderBrush="#F3FFFFFF" BorderThickness="1" CornerRadius="14" ClipToBounds="True" BoxShadow="5 5 14 0 #10233143, -4 -4 12 0 #AFFFFFFF">
+                                    <Grid Width="248" MinHeight="92">
+                                      <Grid IsVisible="{Binding HasPreviewImage}">
+                                        <Image Source="{Binding PreviewImage}" Height="152" Stretch="UniformToFill" />
+                                        <Border VerticalAlignment="Bottom" Background="#CC0F172A" Padding="10,7">
+                                          <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                            <TextBlock Text="{Binding FileName}" Foreground="White" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Grid.Column="1" Text="{Binding SizeText}" Foreground="#D9E5F3" FontSize="11" />
+                                          </Grid>
+                                        </Border>
+                                      </Grid>
+                                      <Grid IsVisible="{Binding ShowVideoPreview}" ColumnDefinitions="54,*" ColumnSpacing="12" Margin="12">
+                                        <Border Width="54" Height="54" CornerRadius="16" Background="#FFFFE9EE">
+                                          <TextBlock Text="▶" Foreground="#E11D48" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                          <TextBlock Text="{Binding PreviewTitle}" Classes="micro" FontWeight="SemiBold" />
+                                          <TextBlock Text="{Binding FileName}" Classes="body" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                          <TextBlock Text="{Binding SizeText}" Classes="micro" />
+                                        </StackPanel>
+                                      </Grid>
+                                      <Grid IsVisible="{Binding ShowDocumentPreview}" ColumnDefinitions="4,*" ColumnSpacing="10" Margin="12">
+                                        <Border Background="{Binding Accent}" CornerRadius="2" />
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                          <TextBlock Text="{Binding FileName}" Classes="body" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                          <TextBlock Text="{Binding SizeText}" Classes="micro" />
+                                        </StackPanel>
+                                      </Grid>
+                                    </Grid>
+                                  </Border>
+                                </Button>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                          <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <TextBlock Text="{Binding TimeText}" Classes="micro" />
+                            <Button Grid.Column="1" Classes="tool" MinHeight="26" MinWidth="30" Padding="8,4" Content="..." IsVisible="{Binding CanShowActions}">
+                              <Button.Flyout>
+                                <Flyout>
+                                  <Border Background="#FFFFFF" BorderBrush="#D7E2EE" BorderThickness="1" CornerRadius="14" Padding="10" Width="230">
+                                    <StackPanel Spacing="7">
+                                      <TextBlock Text="Удалить сообщение" Classes="micro" FontWeight="SemiBold" />
+                                      <Button Classes="tool" Content="У себя" Command="{Binding DataContext.DeleteMessageForMeCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Button Classes="danger" Content="У всех" Command="{Binding DataContext.DeleteMessageForEveryoneCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Border Height="1" Background="#E2E9F1" Margin="0,4" />
+                                      <Button Classes="tool" Content="Скопировать" Command="{Binding DataContext.CopyMessageCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Button Classes="tool" Content="Переслать..." Command="{Binding DataContext.BeginForwardCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Button Classes="tool" Content="Ответить" Command="{Binding DataContext.ReplyToCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                    </StackPanel>
+                                  </Border>
+                                </Flyout>
+                              </Button.Flyout>
+                            </Button>
+                          </Grid>
+                        </StackPanel>
+                      </Border>
+
+                      <Border Classes="message outgoing"
+                              IsVisible="{Binding IsOutgoing}"
+                              Background="{Binding DataContext.OutgoingMessageBrush, ElementName=Root}"
+                              Padding="{Binding DataContext.MessagePadding, ElementName=Root}"
+                              MaxWidth="{Binding DataContext.MessageMaxWidth, ElementName=Root}"
+                              Opacity="{Binding VisualOpacity}">
+                        <StackPanel Spacing="6">
+                          <ScrollViewer MaxHeight="430"
+                                        HorizontalScrollBarVisibility="Disabled"
+                                        VerticalScrollBarVisibility="Auto">
+                            <TextBlock Text="{Binding Text}"
+                                       Classes="body"
+                                       TextWrapping="Wrap"
+                                       MaxWidth="{Binding DataContext.MessageTextMaxWidth, ElementName=Root}"
+                                       FontSize="{Binding DataContext.ChatFontSize, ElementName=Root}" />
+                          </ScrollViewer>
+                          <ItemsControl ItemsSource="{Binding Attachments}" IsVisible="{Binding HasAttachments}">
+                            <ItemsControl.ItemsPanel>
+                              <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" Spacing="8" />
+                              </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate x:DataType="models:AttachmentPreview">
+                                <Button Classes="attachmentPreview"
+                                        Command="{Binding DataContext.OpenAttachmentPreviewCommand, ElementName=Root}"
+                                        CommandParameter="{Binding}">
+                                  <Border Background="#EFFFFFFF" BorderBrush="#F4FFFFFF" BorderThickness="1" CornerRadius="14" ClipToBounds="True" BoxShadow="5 5 14 0 #102563EB, -4 -4 12 0 #AFFFFFFF">
+                                    <Grid Width="248" MinHeight="92">
+                                      <Grid IsVisible="{Binding HasPreviewImage}">
+                                        <Image Source="{Binding PreviewImage}" Height="152" Stretch="UniformToFill" />
+                                        <Border VerticalAlignment="Bottom" Background="#CC0F172A" Padding="10,7">
+                                          <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                            <TextBlock Text="{Binding FileName}" Foreground="White" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Grid.Column="1" Text="{Binding SizeText}" Foreground="#D9E5F3" FontSize="11" />
+                                          </Grid>
+                                        </Border>
+                                      </Grid>
+                                      <Grid IsVisible="{Binding ShowVideoPreview}" ColumnDefinitions="54,*" ColumnSpacing="12" Margin="12">
+                                        <Border Width="54" Height="54" CornerRadius="16" Background="#FFFFE9EE">
+                                          <TextBlock Text="▶" Foreground="#E11D48" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                                          <TextBlock Text="{Binding PreviewTitle}" Classes="micro" FontWeight="SemiBold" />
+                                          <TextBlock Text="{Binding FileName}" Classes="body" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                          <TextBlock Text="{Binding SizeText}" Classes="micro" />
+                                        </StackPanel>
+                                      </Grid>
+                                      <Grid IsVisible="{Binding ShowDocumentPreview}" ColumnDefinitions="4,*" ColumnSpacing="10" Margin="12">
+                                        <Border Background="{Binding Accent}" CornerRadius="2" />
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                          <TextBlock Text="{Binding FileName}" Classes="body" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                          <TextBlock Text="{Binding SizeText}" Classes="micro" />
+                                        </StackPanel>
+                                      </Grid>
+                                    </Grid>
+                                  </Border>
+                                </Button>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+                          <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                            <TextBlock Text="{Binding State}" Classes="micro" />
+                            <TextBlock Grid.Column="1" Text="{Binding TimeText}" Classes="micro" />
+                            <Button Grid.Column="2" Classes="tool" MinHeight="26" MinWidth="30" Padding="8,4" Content="..." IsVisible="{Binding CanShowActions}">
+                              <Button.Flyout>
+                                <Flyout>
+                                  <Border Background="#FFFFFF" BorderBrush="#D7E2EE" BorderThickness="1" CornerRadius="14" Padding="10" Width="230">
+                                    <StackPanel Spacing="7">
+                                      <TextBlock Text="Удалить сообщение" Classes="micro" FontWeight="SemiBold" />
+                                      <Button Classes="tool" Content="У себя" Command="{Binding DataContext.DeleteMessageForMeCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Button Classes="danger" Content="У всех" Command="{Binding DataContext.DeleteMessageForEveryoneCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Border Height="1" Background="#E2E9F1" Margin="0,4" />
+                                      <Button Classes="tool" Content="Скопировать" Command="{Binding DataContext.CopyMessageCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Button Classes="tool" Content="Переслать..." Command="{Binding DataContext.BeginForwardCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                      <Button Classes="tool" Content="Ответить" Command="{Binding DataContext.ReplyToCommand, ElementName=Root}" CommandParameter="{Binding}" />
+                                    </StackPanel>
+                                  </Border>
+                                </Flyout>
+                              </Button.Flyout>
+                            </Button>
+                          </Grid>
+                        </StackPanel>
+                      </Border>
+                    </Grid>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+
+            <Border Grid.Row="2" Background="{Binding ChatSurfaceBrush}" BorderBrush="{Binding SettingsDividerBrush}" BorderThickness="0,1,0,0" Padding="18">
+              <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10">
+                <ItemsControl ItemsSource="{Binding PendingAttachments}" IsVisible="{Binding HasPendingAttachments}">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <StackPanel Orientation="Horizontal" Spacing="8" />
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:AttachmentPreview">
+                      <Border Background="#EFFFFFFF" BorderBrush="#F3FFFFFF" BorderThickness="1" CornerRadius="14" Padding="7" BoxShadow="5 5 13 0 #10233143, -4 -4 12 0 #AFFFFFFF">
+                        <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                          <Border Width="48" Height="48" CornerRadius="12" ClipToBounds="True" Background="#EEF4FB">
+                            <Grid>
+                              <Image Source="{Binding PreviewImage}" Stretch="UniformToFill" IsVisible="{Binding HasPreviewImage}" />
+                              <Border IsVisible="{Binding ShowVideoPreview}" Background="#FFF1F4">
+                                <TextBlock Text="▶" Foreground="#E11D48" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                              </Border>
+                              <Border IsVisible="{Binding ShowDocumentPreview}" Background="{Binding Accent}" Opacity="0.18" />
+                            </Grid>
+                          </Border>
+                          <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding FileName}" Classes="body" FontSize="12" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding SizeText}" Classes="micro" />
+                          </StackPanel>
+                          <Button Grid.Column="2"
+                                  Classes="danger"
+                                  MinWidth="28"
+                                  Width="28"
+                                  Height="28"
+                                  Padding="0"
+                                  Content="x"
+                                  Command="{Binding DataContext.RemovePendingAttachmentCommand, ElementName=Root}"
+                                  CommandParameter="{Binding}" />
+                        </Grid>
+                      </Border>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Border Grid.Row="1"
+                        IsVisible="{Binding IsForwardPickerOpen}"
+                        Background="#FFFDF7"
+                        BorderBrush="#F3DA9B"
+                        BorderThickness="1"
+                        CornerRadius="14"
+                        Padding="10">
+                  <Grid RowDefinitions="Auto,Auto" RowSpacing="8">
+                    <Grid ColumnDefinitions="*,Auto">
+                      <TextBlock Text="Переслать в чат" FontWeight="SemiBold" Foreground="#5C3B00" />
+                      <Button Grid.Column="1" Classes="tool" Content="Отмена" Command="{Binding CancelForwardCommand}" />
+                    </Grid>
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Conversations}">
+                      <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                          <StackPanel Orientation="Horizontal" Spacing="8" />
+                        </ItemsPanelTemplate>
+                      </ItemsControl.ItemsPanel>
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:ConversationItem">
+                          <Button Classes="tool"
+                                  Content="{Binding Title}"
+                                  Command="{Binding DataContext.ForwardMessageToConversationCommand, ElementName=Root}"
+                                  CommandParameter="{Binding}" />
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                  </Grid>
+                </Border>
+
+                <Border Grid.Row="2"
+                        IsVisible="{Binding HasReplyPreview}"
+                        Background="#EEF6FF"
+                        BorderBrush="#BFDBFE"
+                        BorderThickness="1"
+                        CornerRadius="14"
+                        Padding="10">
+                  <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                    <StackPanel>
+                      <TextBlock Text="Ответ" Classes="micro" FontWeight="SemiBold" />
+                      <TextBlock Text="{Binding ReplyPreview}" Classes="muted" TextTrimming="CharacterEllipsis" />
+                    </StackPanel>
+                    <Button Grid.Column="1" Classes="tool" Content="x" Command="{Binding CancelReplyCommand}" />
+                  </Grid>
+                </Border>
+
+                <Grid Grid.Row="3" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                  <Button Classes="tool">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                      <TextBlock Text="＋" FontWeight="SemiBold" />
+                      <TextBlock Text="Прикрепить" />
+                    </StackPanel>
+                    <Button.Flyout>
+                      <Flyout>
+                        <Border Background="#FFFFFF" BorderBrush="#D7E2EE" BorderThickness="1" CornerRadius="16" Padding="10" Width="260">
+                          <StackPanel Spacing="8">
+                            <TextBlock Text="Добавить вложение" Classes="micro" FontWeight="SemiBold" />
+                            <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding AddPhotoAttachmentCommand}">
+                              <Grid ColumnDefinitions="4,*" ColumnSpacing="10">
+                                <Border Background="#4A8CFF" CornerRadius="2" />
+                                <StackPanel Grid.Column="1">
+                                  <TextBlock Text="Фото" FontWeight="SemiBold" />
+                                  <TextBlock Text="PNG, JPG, WEBP, GIF" Classes="micro" />
+                                </StackPanel>
+                              </Grid>
+                            </Button>
+                            <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding AddVideoAttachmentCommand}">
+                              <Grid ColumnDefinitions="4,*" ColumnSpacing="10">
+                                <Border Background="#FF6B8A" CornerRadius="2" />
+                                <StackPanel Grid.Column="1">
+                                  <TextBlock Text="Видео" FontWeight="SemiBold" />
+                                  <TextBlock Text="MP4, MOV, WEBM, MKV" Classes="micro" />
+                                </StackPanel>
+                              </Grid>
+                            </Button>
+                            <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding AddDocumentAttachmentCommand}">
+                              <Grid ColumnDefinitions="4,*" ColumnSpacing="10">
+                                <Border Background="#7C5CFF" CornerRadius="2" />
+                                <StackPanel Grid.Column="1">
+                                  <TextBlock Text="Документ" FontWeight="SemiBold" />
+                                  <TextBlock Text="PDF, Office, TXT, ZIP" Classes="micro" />
+                                </StackPanel>
+                              </Grid>
+                            </Button>
+                          </StackPanel>
+                        </Border>
+                      </Flyout>
+                    </Button.Flyout>
+                  </Button>
+                  <TextBox Grid.Column="1"
+                           x:Name="ComposerBox"
+                           Classes="composer"
+                           PlaceholderText="Написать сообщение..."
+                           Text="{Binding DraftMessage, Mode=TwoWay}"
+                           AcceptsReturn="True"
+                           TextWrapping="Wrap" />
+                  <Button Grid.Column="2"
+                          Classes="primary"
+                          Command="{Binding SendDraftCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                      <TextBlock Text="➤" />
+                      <TextBlock Text="Отправить" />
+                    </StackPanel>
+                  </Button>
+                </Grid>
+              </Grid>
+            </Border>
+          </Grid>
+        </Grid>
+      </Border>
+
+      <Border Classes="shell" IsVisible="{Binding IsSettingsVisible}" Background="{Binding ShellBrush}" Margin="18" Padding="0">
+        <Grid RowDefinitions="Auto,1,*">
+          <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16" Margin="28,24,28,18">
+            <StackPanel VerticalAlignment="Center">
+              <TextBlock Text="Настройки" Classes="h1" />
+              <TextBlock Text="Профиль, аккаунт, приватность и внешний вид приложения." Classes="muted" />
+            </StackPanel>
+            <Button Grid.Column="1" Classes="primary" Content="Вернуться в чат" Command="{Binding CloseSettingsCommand}" />
+          </Grid>
+
+          <Border Grid.Row="1" Background="{Binding SettingsDividerBrush}" />
+
+          <Grid Grid.Row="2" ColumnDefinitions="320,*">
+            <Border Padding="20,22"
+                    BorderBrush="{Binding SettingsDividerBrush}"
+                    BorderThickness="0,0,1,0">
+              <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Spacing="18">
+                  <Border Classes="panel" Padding="16">
+                    <Grid RowDefinitions="Auto,Auto" RowSpacing="12">
+                      <Grid ColumnDefinitions="68,*" ColumnSpacing="12">
+                        <Border Width="68" Height="68" CornerRadius="28" Background="#162033" ClipToBounds="True">
+                          <Grid>
+                            <Image Source="{Binding ProfileAvatar}" Stretch="UniformToFill" IsVisible="{Binding HasProfileAvatar}" />
+                            <TextBlock Text="{Binding ProfileInitials}" IsVisible="{Binding HasNoProfileAvatar}" Foreground="White" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                          </Grid>
+                        </Border>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                          <TextBlock Text="{Binding CurrentUserName}" Classes="h2" TextTrimming="CharacterEllipsis" />
+                          <TextBlock Text="{Binding CurrentHandle}" Classes="muted" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                      </Grid>
+                      <Button Grid.Row="1" Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Профиль">
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                          <TextBlock Text="☺" Width="22" />
+                          <TextBlock Text="Профиль" />
+                        </StackPanel>
+                      </Button>
+                    </Grid>
+                  </Border>
+
+                  <StackPanel Spacing="8">
+                    <TextBlock Text="Общие" Classes="micro" FontWeight="SemiBold" />
+                    <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Аккаунт">
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="⌘" Width="22" /><TextBlock Text="Аккаунт и способы входа" /></StackPanel>
+                    </Button>
+                    <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Интерфейс">
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="◐" Width="22" /><TextBlock Text="Интерфейс" /></StackPanel>
+                    </Button>
+                    <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Чаты">
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="✎" Width="22" /><TextBlock Text="Чаты и отправка" /></StackPanel>
+                    </Button>
+                    <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Уведомления">
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="!" Width="22" /><TextBlock Text="Уведомления" /></StackPanel>
+                    </Button>
+                    <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="О программе">
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="ⓘ" Width="22" /><TextBlock Text="О программе" /></StackPanel>
+                    </Button>
+                  </StackPanel>
+
+                  <StackPanel Spacing="8">
+                    <TextBlock Text="Безопасность" Classes="micro" FontWeight="SemiBold" />
+                    <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Приватность">
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="#" Width="22" /><TextBlock Text="Приватность" /></StackPanel>
+                    </Button>
+                    <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Безопасность">
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="□" Width="22" /><TextBlock Text="2FA и сессия" /></StackPanel>
+                    </Button>
+                  </StackPanel>
+                </StackPanel>
+              </ScrollViewer>
+            </Border>
+
+            <ScrollViewer Grid.Column="1"
+                          x:Name="SettingsScroller"
+                          Padding="34,28,42,92"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled">
+              <StackPanel MaxWidth="860" Spacing="18">
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsProfileSettingsSection}">
+                  <StackPanel Spacing="16">
+                    <Grid ColumnDefinitions="112,*" ColumnSpacing="18">
+                      <Border Width="112" Height="112" CornerRadius="36" Background="#162033" ClipToBounds="True">
+                        <Grid>
+                          <Image Source="{Binding ProfileAvatar}" Stretch="UniformToFill" IsVisible="{Binding HasProfileAvatar}" />
+                          <TextBlock Text="{Binding ProfileInitials}" IsVisible="{Binding HasNoProfileAvatar}" Foreground="White" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Grid>
+                      </Border>
+                      <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="8">
+                        <TextBlock Text="Профиль" Classes="h1" />
+                        <TextBlock Text="{Binding ProfileAvatarHint}" Classes="muted" TextWrapping="Wrap" />
+                        <Button Classes="tool" Content="Изменить фото" Command="{Binding ChangeProfilePhotoCommand}" HorizontalAlignment="Left" />
+                      </StackPanel>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
+                      <StackPanel Spacing="7">
+                        <TextBlock Text="Отображаемое имя" Classes="micro" FontWeight="SemiBold" />
+                        <TextBox Classes="search" Text="{Binding ProfileDisplayName, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding DisplayNameValidationMessage}" Classes="validation" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="1" Spacing="7">
+                        <TextBlock Text="Юзернейм" Classes="micro" FontWeight="SemiBold" />
+                        <TextBox Classes="search" Text="{Binding ProfileUsername, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding UsernameValidationMessage}" Classes="validation" />
+                      </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="О себе" Classes="micro" FontWeight="SemiBold" />
+                    <TextBox Classes="search" MinHeight="98" AcceptsReturn="True" TextWrapping="Wrap" Text="{Binding ProfileAbout, Mode=TwoWay}" />
+                    <TextBlock Text="{Binding ProfileAboutValidationMessage}" Classes="validation" />
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
+                      <StackPanel Spacing="7">
+                        <TextBlock Text="Дата рождения" Classes="micro" FontWeight="SemiBold" />
+                        <TextBox Classes="search" Text="{Binding ProfileBirthday, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding ProfileBirthdayValidationMessage}" Classes="validation" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="1" Spacing="7">
+                        <TextBlock Text="Телефон профиля" Classes="micro" FontWeight="SemiBold" />
+                        <TextBox Classes="search" Text="{Binding ProfilePhone, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding ProfilePhoneValidationMessage}" Classes="validation" />
+                      </StackPanel>
+                    </Grid>
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                      <Button Classes="primary" Content="Сохранить профиль" Command="{Binding SaveProfileCommand}" />
+                      <TextBlock Grid.Column="1" Text="{Binding ProfileStatus}" Classes="muted" VerticalAlignment="Center" TextWrapping="Wrap" />
+                    </Grid>
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsAccountSettingsSection}">
+                  <StackPanel Spacing="16">
+                    <TextBlock Text="Аккаунт и способы входа" Classes="h1" />
+                    <TextBlock Text="{Binding CurrentUserName}" Classes="body" FontWeight="SemiBold" />
+                    <TextBlock Text="{Binding CurrentHandle}" Classes="muted" />
+                    <TextBlock Text="Привязанные способы входа" Classes="micro" FontWeight="SemiBold" />
+                    <ItemsControl ItemsSource="{Binding LinkedIdentities}" IsVisible="{Binding HasLinkedIdentities}">
+                      <ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel Spacing="8" /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="auth:AuthIdentityDto">
+                          <Border Background="#12FFFFFF" BorderBrush="#DDE7F2" BorderThickness="1" CornerRadius="12" Padding="12,9">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                              <TextBlock Text="⌁" />
+                              <StackPanel Grid.Column="1">
+                                <TextBlock Text="{Binding Provider}" Classes="micro" FontWeight="SemiBold" />
+                                <TextBlock Text="{Binding Identifier}" Classes="body" TextWrapping="Wrap" />
+                              </StackPanel>
+                              <Button Grid.Column="2"
+                                      Classes="danger"
+                                      Content="Отвязать"
+                                      Command="{Binding DataContext.UnlinkIdentityCommand, ElementName=Root}"
+                                      CommandParameter="{Binding}" />
+                            </Grid>
+                          </Border>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Text="{Binding LinkedIdentitiesSummary}" Classes="muted" TextWrapping="Wrap" />
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                      <Button Classes="tool" Content="Телефон" Command="{Binding SetAuthModeCommand}" CommandParameter="Телефон" />
+                      <Button Grid.Column="1" Classes="tool" Content="Email" Command="{Binding SetAuthModeCommand}" CommandParameter="Email" />
+                      <Button Grid.Column="2" Classes="tool" Content="ЯндексID" Command="{Binding SetAuthModeCommand}" CommandParameter="ЯндексID" />
+                    </Grid>
+                    <TextBox Classes="search" IsVisible="{Binding IsAuthPhoneMode}" Text="{Binding AuthPhone, Mode=TwoWay}" PlaceholderText="+79991234567" />
+                    <TextBox Classes="search" IsVisible="{Binding IsAuthEmailMode}" Text="{Binding AuthEmail, Mode=TwoWay}" PlaceholderText="name@company.com" />
+                    <Border Background="#12FFFFFF" BorderBrush="#DDE7F2" BorderThickness="1" CornerRadius="16" Padding="14" IsVisible="{Binding IsAuthYandexMode}">
+                      <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <Border Width="164" Height="164" CornerRadius="18" Background="#FFFFFF" Padding="10" IsVisible="{Binding HasYandexChallenge}">
+                          <Image Source="{Binding YandexQrCode}" Stretch="Uniform" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="9" VerticalAlignment="Center">
+                          <TextBlock Text="YandexID через QR" Classes="h2" />
+                          <TextBlock Text="{Binding YandexQrStatus}" Classes="muted" TextWrapping="Wrap" />
+                          <TextBlock Text="{Binding YandexUserCode}" Classes="h1" />
+                          <TextBlock Text="{Binding YandexVerificationUrl}" Classes="micro" TextWrapping="Wrap" />
+                          <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="10">
+                            <Button Classes="tool" Content="Создать QR" Command="{Binding StartYandexQrLinkCommand}" />
+                            <Button Grid.Column="1" Classes="primary" Content="Проверить" Command="{Binding CompleteYandexQrLinkCommand}" />
+                          </Grid>
+                        </StackPanel>
+                      </Grid>
+                    </Border>
+                    <TextBox Classes="search" IsVisible="{Binding IsPasswordAuthMode}" PasswordChar="•" Text="{Binding AuthPassword, Mode=TwoWay}" PlaceholderText="Пароль для этого способа входа" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12" IsVisible="{Binding IsPasswordAuthMode}">
+                      <Button Classes="tool" Content="Отправить код" Command="{Binding SendIdentityVerificationCodeCommand}" />
+                      <TextBox Grid.Column="1" Classes="search" Text="{Binding AuthCode, Mode=TwoWay}" PlaceholderText="Код подтверждения" />
+                    </Grid>
+                    <Button Classes="primary" Content="Привязать выбранный способ входа" Command="{Binding LinkCurrentIdentityCommand}" HorizontalAlignment="Left" IsVisible="{Binding IsPasswordAuthMode}" />
+                    <TextBlock Text="{Binding AuthStatus}" Classes="muted" TextWrapping="Wrap" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsInterfaceSettingsSection}">
+                  <StackPanel Spacing="18">
+                    <TextBlock Text="Интерфейс" Classes="h1" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="18">
+                      <StackPanel Spacing="8">
+                        <TextBlock Text="Цветовая гамма" Classes="micro" FontWeight="SemiBold" />
+                        <ComboBox Classes="select" ItemsSource="{Binding ChatThemeOptions}" SelectedItem="{Binding ChatThemeName, Mode=TwoWay}" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="1" Spacing="8">
+                        <TextBlock Text="Масштаб текста" Classes="micro" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding ChatFontSize, StringFormat='Размер: {0:0}'}" Classes="muted" />
+                      </StackPanel>
+                    </Grid>
+                    <Slider Minimum="12" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ChatFontSize, Mode=TwoWay}" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsChatSettingsSection}">
+                  <StackPanel Spacing="16">
+                    <TextBlock Text="Чаты и отправка" Classes="h1" />
+                    <TextBlock Text="Плотность сообщений" Classes="micro" FontWeight="SemiBold" />
+                    <ComboBox Classes="select" Width="260" HorizontalAlignment="Left" ItemsSource="{Binding BubbleDensityOptions}" SelectedItem="{Binding BubbleDensity, Mode=TwoWay}" />
+                    <CheckBox Content="Enter отправляет сообщение, Shift+Enter переносит строку" IsChecked="{Binding SendByEnter, Mode=TwoWay}" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsPrivacySettingsSection}">
+                  <StackPanel Spacing="14">
+                    <TextBlock Text="Приватность" Classes="h1" />
+                    <CheckBox Content="Разрешить поиск по username и имени" IsChecked="{Binding AllowProfileSearch, Mode=TwoWay}" />
+                    <CheckBox Content="Разрешить находить по телефону" IsChecked="{Binding AllowPhoneDiscovery, Mode=TwoWay}" />
+                    <CheckBox Content="Показывать дату рождения" IsChecked="{Binding ShowBirthday, Mode=TwoWay}" />
+                    <CheckBox Content="Показывать время последнего входа" IsChecked="{Binding ShowLastSeen, Mode=TwoWay}" />
+                    <CheckBox Content="Отправлять отметки прочтения" IsChecked="{Binding SendReadReceipts, Mode=TwoWay}" />
+                    <CheckBox Content="Шифровать метаданные медиа" IsChecked="{Binding EncryptMediaMetadata, Mode=TwoWay}" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsNotificationsSettingsSection}">
+                  <StackPanel Spacing="14">
+                    <TextBlock Text="Уведомления" Classes="h1" />
+                    <CheckBox Content="Показывать уведомления о новых сообщениях" IsChecked="{Binding ShowMessageNotifications, Mode=TwoWay}" />
+                    <CheckBox Content="Звук входящих сообщений" IsChecked="{Binding PlayIncomingSound, Mode=TwoWay}" />
+                    <CheckBox Content="Показывать превью текста" IsChecked="{Binding ShowTextPreview, Mode=TwoWay}" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsSecuritySettingsSection}">
+                  <StackPanel Spacing="14">
+                    <TextBlock Text="Безопасность" Classes="h1" />
+                    <TextBlock Text="{Binding TwoFactorStatus}" Classes="muted" TextWrapping="Wrap" />
+                    <Button Classes="tool" Content="Создать одноразовый ключ" Command="{Binding SetupTwoFactorCommand}" HorizontalAlignment="Left" />
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16" IsVisible="{Binding HasTwoFactorQrCode}">
+                      <Border Width="178" Height="178" CornerRadius="18" Background="#FFFFFF" Padding="10">
+                        <Image Source="{Binding TwoFactorQrCode}" Stretch="Uniform" />
+                      </Border>
+                      <StackPanel Grid.Column="1" Spacing="8" VerticalAlignment="Center">
+                        <TextBlock Text="Секретный ключ" Classes="micro" FontWeight="SemiBold" />
+                        <TextBox Classes="search" Text="{Binding TwoFactorSetupSecret, Mode=TwoWay}" IsReadOnly="True" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding TwoFactorOtpAuthUri}" Classes="micro" TextWrapping="Wrap" />
+                      </StackPanel>
+                    </Grid>
+                    <TextBox Classes="search" Text="{Binding TwoFactorSetupCode, Mode=TwoWay}" PlaceholderText="PIN из TOTP-приложения" />
+                    <Grid ColumnDefinitions="Auto,Auto,*" ColumnSpacing="10">
+                      <Button Classes="primary" Content="Включить 2FA" Command="{Binding EnableTwoFactorCommand}" />
+                      <Button Grid.Column="1" Classes="danger" Content="Выключить" Command="{Binding DisableTwoFactorCommand}" />
+                      <Button Grid.Column="2" Classes="danger" Content="Выйти из аккаунта" Command="{Binding SignOutCommand}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <Border Height="1" Background="{Binding SettingsDividerBrush}" Margin="0,6" />
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                      <StackPanel>
+                        <TextBlock Text="Открытые сессии" Classes="h2" />
+                        <TextBlock Text="Устройства и активные токены аккаунта." Classes="muted" />
+                      </StackPanel>
+                      <Button Grid.Column="1" Classes="tool" Content="Обновить" Command="{Binding LoadSessionsCommand}" />
+                    </Grid>
+                    <ItemsControl ItemsSource="{Binding ActiveSessions}" IsVisible="{Binding HasActiveSessions}">
+                      <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate><StackPanel Spacing="10" /></ItemsPanelTemplate>
+                      </ItemsControl.ItemsPanel>
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:SessionItem">
+                          <Border Background="#12FFFFFF" BorderBrush="#DDE7F2" BorderThickness="1" CornerRadius="14" Padding="14">
+                            <Grid ColumnDefinitions="38,*,Auto" ColumnSpacing="12">
+                              <TextBlock Text="▣" FontSize="24" VerticalAlignment="Top" />
+                              <StackPanel Grid.Column="1" Spacing="3">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                  <TextBlock Text="{Binding DeviceName}" Classes="body" FontWeight="SemiBold" TextWrapping="Wrap" />
+                                  <TextBlock Grid.Column="1" Text="{Binding CurrentBadge}" Classes="micro" />
+                                </Grid>
+                                <TextBlock Text="{Binding UserAgent}" Classes="micro" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding CreatedText, StringFormat='Создана: {0}'}" Classes="muted" />
+                                <TextBlock Text="{Binding LastSeenText, StringFormat='Активность: {0}'}" Classes="muted" />
+                              </StackPanel>
+                              <Button Grid.Column="2"
+                                      Classes="danger"
+                                      Content="Закрыть"
+                                      Command="{Binding DataContext.RevokeSessionCommand, ElementName=Root}"
+                                      CommandParameter="{Binding}" />
+                            </Grid>
+                          </Border>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Classes="danger" Content="Закрыть все сессии, кроме текущей" Command="{Binding RevokeOtherSessionsCommand}" HorizontalAlignment="Left" />
+                  </StackPanel>
+                </Border>
+
+                <Border Classes="panel" Padding="22" IsVisible="{Binding IsAboutSettingsSection}">
+                  <StackPanel Spacing="16">
+                    <TextBlock Text="О программе" Classes="h1" />
+                    <Grid ColumnDefinitions="96,*" ColumnSpacing="16">
+                      <Border Width="96" Height="96" CornerRadius="24" Background="#0B111B" ClipToBounds="True">
+                        <Image Source="/Assets/staffmessenger-logo.png" Stretch="UniformToFill" />
+                      </Border>
+                      <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="5">
+                        <TextBlock Text="{Binding AppProductName}" Classes="h2" />
+                        <TextBlock Text="{Binding AppVersion, StringFormat='Версия: {0}'}" Classes="muted" />
+                        <TextBlock Text="{Binding UpdateStatus}" Classes="body" TextWrapping="Wrap" />
+                      </StackPanel>
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,Auto" ColumnSpacing="10">
+                      <Button Classes="primary" Content="Проверить обновления" Command="{Binding CheckForUpdatesCommand}" />
+                      <Button Grid.Column="1" Classes="tool" Content="Установить обновление" Command="{Binding InstallUpdateCommand}" />
+                    </Grid>
+                  </StackPanel>
+                </Border>
+              </StackPanel>
+            </ScrollViewer>
+          </Grid>
+
+          <ScrollViewer Grid.Row="2"
+                        IsVisible="False"
+                        x:Name="LegacySettingsScroller"
+                        Padding="28,28,28,104"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+            <StackPanel MaxWidth="1240" HorizontalAlignment="Center" Spacing="18">
+              <Grid ColumnDefinitions="380,*" ColumnSpacing="18">
+                <StackPanel Spacing="18">
+                  <Border Classes="panel" Padding="18">
+                    <StackPanel Spacing="14">
+                      <Grid ColumnDefinitions="96,*" ColumnSpacing="14">
+                        <Border Width="96" Height="96" CornerRadius="26" Background="#162033" ClipToBounds="True">
+                          <Grid>
+                            <Image Source="{Binding ProfileAvatar}" Stretch="UniformToFill" IsVisible="{Binding HasProfileAvatar}" />
+                            <TextBlock Text="{Binding ProfileInitials}" IsVisible="{Binding HasNoProfileAvatar}" Foreground="White" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                          </Grid>
+                        </Border>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="8">
+                          <TextBlock Text="Профиль" Classes="h2" />
+                          <TextBlock Text="{Binding ProfileAvatarHint}" Classes="micro" TextWrapping="Wrap" />
+                          <Button Classes="tool" Content="Изменить фото" Command="{Binding ChangeProfilePhotoCommand}" />
+                        </StackPanel>
+                      </Grid>
+
+                      <TextBlock Text="Отображаемое имя" Classes="micro" FontWeight="SemiBold" />
+                      <TextBox Classes="search" Text="{Binding ProfileDisplayName, Mode=TwoWay}" />
+                      <TextBlock Text="{Binding DisplayNameValidationMessage}" Classes="validation" />
+
+                      <TextBlock Text="Юзернейм" Classes="micro" FontWeight="SemiBold" />
+                      <TextBox Classes="search" Text="{Binding ProfileUsername, Mode=TwoWay}" />
+                      <TextBlock Text="{Binding UsernameValidationMessage}" Classes="validation" />
+
+                      <TextBlock Text="О себе" Classes="micro" FontWeight="SemiBold" />
+                      <TextBox Classes="search"
+                               MinHeight="82"
+                               AcceptsReturn="True"
+                               TextWrapping="Wrap"
+                               Text="{Binding ProfileAbout, Mode=TwoWay}" />
+                      <TextBlock Text="{Binding ProfileAboutValidationMessage}" Classes="validation" />
+
+                      <TextBlock Text="Дата рождения" Classes="micro" FontWeight="SemiBold" />
+                      <TextBox Classes="search" Text="{Binding ProfileBirthday, Mode=TwoWay}" />
+                      <TextBlock Text="{Binding ProfileBirthdayValidationMessage}" Classes="validation" />
+
+                      <TextBlock Text="Телефон" Classes="micro" FontWeight="SemiBold" />
+                      <TextBox Classes="search" Text="{Binding ProfilePhone, Mode=TwoWay}" />
+                      <TextBlock Text="{Binding ProfilePhoneValidationMessage}" Classes="validation" />
+
+                      <Button Classes="primary" Content="Сохранить профиль" Command="{Binding SaveProfileCommand}" />
+                      <TextBlock Text="{Binding ProfileStatus}" Classes="muted" />
+                    </StackPanel>
+                  </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Spacing="18">
+                  <Grid ColumnDefinitions="*,360" ColumnSpacing="18">
+                    <Border Classes="panel" Padding="18">
+                      <StackPanel Spacing="12">
+                        <TextBlock Text="Настройки чата" Classes="h2" />
+                        <TextBlock Text="{Binding ChatFontSize, StringFormat='Размер текста: {0:0}'}" Classes="micro" />
+                        <Slider Minimum="12" Maximum="20" TickFrequency="1" IsSnapToTickEnabled="True" Value="{Binding ChatFontSize, Mode=TwoWay}" />
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="14">
+                          <StackPanel Spacing="6">
+                            <TextBlock Text="Цветовая гамма" Classes="micro" FontWeight="SemiBold" />
+                            <ComboBox Classes="select"
+                                      ItemsSource="{Binding ChatThemeOptions}"
+                                      SelectedItem="{Binding ChatThemeName, Mode=TwoWay}" />
+                          </StackPanel>
+                          <StackPanel Grid.Column="1" Spacing="6">
+                            <TextBlock Text="Плотность сообщений" Classes="micro" FontWeight="SemiBold" />
+                            <ComboBox Classes="select"
+                                      ItemsSource="{Binding BubbleDensityOptions}"
+                                      SelectedItem="{Binding BubbleDensity, Mode=TwoWay}" />
+                          </StackPanel>
+                        </Grid>
+                        <CheckBox Content="Enter отправляет сообщение, Shift+Enter переносит строку" IsChecked="{Binding SendByEnter, Mode=TwoWay}" />
+                      </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Classes="panel" Padding="18">
+                      <StackPanel Spacing="12">
+                        <TextBlock Text="Аккаунт" Classes="h2" />
+                        <TextBlock Text="{Binding CurrentUserName}" Classes="body" FontWeight="SemiBold" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding CurrentHandle}" Classes="muted" TextWrapping="Wrap" />
+                        <TextBlock Text="Привязанные способы входа" Classes="micro" FontWeight="SemiBold" />
+                        <ItemsControl ItemsSource="{Binding LinkedIdentities}" IsVisible="{Binding HasLinkedIdentities}">
+                          <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                              <StackPanel Spacing="6" />
+                            </ItemsPanelTemplate>
+                          </ItemsControl.ItemsPanel>
+                          <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                              <Border Background="#12FFFFFF" BorderBrush="#DDE7F2" BorderThickness="1" CornerRadius="10" Padding="10,7">
+                                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                                  <TextBlock Text="🔗" />
+                                  <TextBlock Grid.Column="1" Text="{Binding Identifier}" Classes="muted" TextWrapping="Wrap" />
+                                </Grid>
+                              </Border>
+                            </DataTemplate>
+                          </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock Text="{Binding LinkedIdentitiesSummary}" Classes="muted" TextWrapping="Wrap" />
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                          <Button Classes="tool" Content="Телефон" Command="{Binding SetAuthModeCommand}" CommandParameter="Телефон" />
+                          <Button Grid.Column="1" Classes="tool" Content="Email" Command="{Binding SetAuthModeCommand}" CommandParameter="Email" />
+                          <Button Grid.Column="2" Classes="tool" Content="ЯндексID" Command="{Binding SetAuthModeCommand}" CommandParameter="ЯндексID" />
+                        </Grid>
+                        <TextBox Classes="search"
+                                 IsVisible="{Binding IsAuthPhoneMode}"
+                                 Text="{Binding AuthPhone, Mode=TwoWay}"
+                                 PlaceholderText="+79991234567" />
+                        <TextBox Classes="search"
+                                 IsVisible="{Binding IsAuthEmailMode}"
+                                 Text="{Binding AuthEmail, Mode=TwoWay}"
+                                 PlaceholderText="name@company.com" />
+                        <TextBox Classes="search"
+                                 IsVisible="{Binding IsAuthYandexMode}"
+                                 Text="{Binding AuthYandexIdentifier, Mode=TwoWay}"
+                                 PlaceholderText="YandexID login или email" />
+                        <TextBox Classes="search"
+                                 IsVisible="{Binding IsPasswordAuthMode}"
+                                 PasswordChar="•"
+                                 Text="{Binding AuthPassword, Mode=TwoWay}"
+                                 PlaceholderText="Пароль для этого способа входа" />
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8" IsVisible="{Binding IsPasswordAuthMode}">
+                          <Button Classes="tool" Content="Отправить код" Command="{Binding SendIdentityVerificationCodeCommand}" />
+                          <TextBox Grid.Column="1"
+                                   Classes="search"
+                                   Text="{Binding AuthCode, Mode=TwoWay}"
+                                   PlaceholderText="Код" />
+                        </Grid>
+                        <Button Classes="tool" Content="Привязать выбранный способ входа" Command="{Binding LinkCurrentIdentityCommand}" />
+                        <TextBlock Text="{Binding AuthStatus}" Classes="muted" TextWrapping="Wrap" />
+                        <Border Height="1" Background="#E2E9F1" />
+                        <TextBlock Text="Двухфакторная защита" Classes="micro" FontWeight="SemiBold" />
+                        <TextBlock Text="{Binding TwoFactorStatus}" Classes="muted" TextWrapping="Wrap" />
+                        <Button Classes="tool" Content="Создать одноразовый ключ" Command="{Binding SetupTwoFactorCommand}" />
+                        <TextBox Classes="search"
+                                 Text="{Binding TwoFactorSetupSecret, Mode=TwoWay}"
+                                 IsReadOnly="True"
+                                 TextWrapping="Wrap"
+                                 MinHeight="54"
+                                 PlaceholderText="otpauth URI появится после создания ключа" />
+                        <TextBox Classes="search"
+                                 Text="{Binding TwoFactorSetupCode, Mode=TwoWay}"
+                                 PlaceholderText="PIN из TOTP-приложения" />
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                          <Button Classes="primary" Content="Включить 2FA" Command="{Binding EnableTwoFactorCommand}" />
+                          <Button Grid.Column="1" Classes="danger" Content="Выключить" Command="{Binding DisableTwoFactorCommand}" />
+                        </Grid>
+                        <Button Classes="danger" Content="Выйти из аккаунта" Command="{Binding SignOutCommand}" />
+                      </StackPanel>
+                    </Border>
+                  </Grid>
+
+                  <Grid ColumnDefinitions="*,*" ColumnSpacing="18">
+                    <Border Classes="panel" Padding="18">
+                      <StackPanel Spacing="12">
+                        <TextBlock Text="Приватность" Classes="h2" />
+                        <CheckBox Content="Разрешить поиск по username и имени" IsChecked="{Binding AllowProfileSearch, Mode=TwoWay}" />
+                        <CheckBox Content="Разрешить находить по телефону" IsChecked="{Binding AllowPhoneDiscovery, Mode=TwoWay}" />
+                        <CheckBox Content="Показывать дату рождения" IsChecked="{Binding ShowBirthday, Mode=TwoWay}" />
+                        <CheckBox Content="Показывать время последнего входа" IsChecked="{Binding ShowLastSeen, Mode=TwoWay}" />
+                        <CheckBox Content="Отправлять отметки прочтения" IsChecked="{Binding SendReadReceipts, Mode=TwoWay}" />
+                        <CheckBox Content="Шифровать метаданные медиа" IsChecked="{Binding EncryptMediaMetadata, Mode=TwoWay}" />
+                      </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Classes="panel" Padding="18">
+                      <StackPanel Spacing="12">
+                        <TextBlock Text="Уведомления" Classes="h2" />
+                        <CheckBox Content="Показывать уведомления о новых сообщениях" IsChecked="{Binding ShowMessageNotifications, Mode=TwoWay}" />
+                        <CheckBox Content="Звук входящих сообщений" IsChecked="{Binding PlayIncomingSound, Mode=TwoWay}" />
+                        <CheckBox Content="Показывать превью текста" IsChecked="{Binding ShowTextPreview, Mode=TwoWay}" />
+                      </StackPanel>
+                    </Border>
+                  </Grid>
+                </StackPanel>
+              </Grid>
+            </StackPanel>
+          </ScrollViewer>
+        </Grid>
+      </Border>
+
+      <Border IsVisible="{Binding IsProfileViewerOpen}"
+              Background="#8C0B111B"
+              Padding="34">
+        <Grid>
+          <Button Background="Transparent"
+                  BorderThickness="0"
+                  Command="{Binding CloseProfileViewerCommand}" />
+
+          <Border Classes="previewSurface"
+                  Background="{Binding ShellBrush}"
+                  Width="760"
+                  MaxHeight="760"
+                  Padding="0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+            <Grid RowDefinitions="Auto,*">
+              <Grid RowDefinitions="Auto,Auto" Margin="26,24,26,18">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="14">
+                  <StackPanel>
+                    <TextBlock Text="Профиль" Classes="h1" />
+                    <TextBlock Text="{Binding ViewedProfileStatus}" Classes="muted" />
+                  </StackPanel>
+                  <Button Grid.Column="1"
+                          Classes="tool"
+                          MinWidth="44"
+                          Content="x"
+                          Command="{Binding CloseProfileViewerCommand}" />
+                </Grid>
+                <Border Grid.Row="1" Height="1" Margin="0,18,0,0" Background="{Binding SettingsDividerBrush}" />
+              </Grid>
+
+              <ScrollViewer Grid.Row="1"
+                            Padding="28,0,28,30"
+                            VerticalScrollBarVisibility="Auto"
+                            HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Spacing="22">
+                  <StackPanel HorizontalAlignment="Center" Spacing="12">
+                    <Border Width="168"
+                            Height="168"
+                            CornerRadius="84"
+                            Background="{Binding ViewedProfileAccent}"
+                            BoxShadow="12 16 42 0 #1B000000"
+                            ClipToBounds="True">
+                      <TextBlock Text="{Binding ViewedProfileInitials}"
+                                 Foreground="White"
+                                 FontSize="48"
+                                 FontWeight="SemiBold"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="{Binding ViewedProfileTitle}"
+                               Classes="h1"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               MaxWidth="560" />
+                    <TextBlock Text="{Binding ViewedProfileSubtitle}"
+                               Classes="muted"
+                               HorizontalAlignment="Center"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                  </StackPanel>
+
+                  <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                    <Border Classes="panel" Padding="16">
+                      <Grid ColumnDefinitions="46,*" ColumnSpacing="12">
+                        <Border Width="46" Height="46" CornerRadius="14" Background="#1A60A5FA">
+                          <TextBlock Text="i" Foreground="#60A5FA" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="3">
+                          <TextBlock Text="Информация" Classes="micro" FontWeight="SemiBold" />
+                          <TextBlock Text="{Binding ViewedProfileAbout}" Classes="body" TextWrapping="Wrap" />
+                        </StackPanel>
+                      </Grid>
+                    </Border>
+
+                    <Border Grid.Column="1" Classes="panel" Padding="16">
+                      <Grid ColumnDefinitions="46,*" ColumnSpacing="12">
+                        <Border Width="46" Height="46" CornerRadius="14" Background="#1A28B7A6">
+                          <TextBlock Text="✓" Foreground="#28B7A6" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Spacing="3">
+                          <TextBlock Text="Синхронизация" Classes="micro" FontWeight="SemiBold" />
+                          <TextBlock Text="{Binding ViewedProfileMessagesInfo}" Classes="body" TextWrapping="Wrap" />
+                        </StackPanel>
+                      </Grid>
+                    </Border>
+                  </Grid>
+
+                  <Border Classes="panel" Padding="18">
+                    <StackPanel Spacing="12">
+                      <TextBlock Text="Действия" Classes="h2" />
+                      <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Button Classes="tool" Command="{Binding CloseProfileViewerCommand}">
+                          <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                            <TextBlock Text="←" />
+                            <TextBlock Text="Вернуться в чат" />
+                          </StackPanel>
+                        </Button>
+                        <Button Grid.Column="1" Classes="tool" Command="{Binding OpenSettingsCommand}">
+                          <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                            <TextBlock Text="⚙" />
+                            <TextBlock Text="Настройки" />
+                          </StackPanel>
+                        </Button>
+                      </Grid>
+                    </StackPanel>
+                  </Border>
+                </StackPanel>
+              </ScrollViewer>
+            </Grid>
+          </Border>
+        </Grid>
+      </Border>
+
+      <Border IsVisible="{Binding IsAttachmentPreviewOpen}"
+              Background="#8C0F172A"
+              Padding="32">
+        <Grid>
+          <Button Background="Transparent"
+                  BorderThickness="0"
+                  Command="{Binding CloseAttachmentPreviewCommand}" />
+
+          <Border Classes="previewSurface"
+                  Width="680"
+                  Height="560"
+                  Padding="18"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+            <Grid RowDefinitions="Auto,*,Auto" RowSpacing="14">
+              <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <StackPanel>
+                  <TextBlock Text="{Binding SelectedAttachmentFileName}" Classes="h2" TextTrimming="CharacterEllipsis" />
+                  <TextBlock Text="{Binding SelectedAttachmentKind}" Classes="muted" />
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Classes="tool"
+                        MinWidth="42"
+                        Content="x"
+                        Command="{Binding CloseAttachmentPreviewCommand}" />
+              </Grid>
+
+              <Border Grid.Row="1"
+                      Background="#E8F2F7FB"
+                      BorderBrush="#F4FFFFFF"
+                      BorderThickness="1"
+                      CornerRadius="18"
+                      ClipToBounds="True"
+                      Height="390">
+                <Grid>
+                  <Image Source="{Binding SelectedAttachmentPreviewImage}"
+                         IsVisible="{Binding SelectedAttachmentHasImage}"
+                         Stretch="Uniform"
+                         MaxWidth="620"
+                         MaxHeight="360"
+                         Margin="12" />
+
+                  <StackPanel IsVisible="{Binding SelectedAttachmentIsVideo}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Spacing="12">
+                    <Border Width="78" Height="78" CornerRadius="24" Background="#FFF1F4" BorderBrush="#FFD2DD" BorderThickness="1">
+                      <TextBlock Text="▶" Foreground="#E11D48" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="Видео готово к отправке" Classes="h2" HorizontalAlignment="Center" />
+                    <TextBlock Text="{Binding SelectedAttachmentLocalPath}" Classes="muted" TextWrapping="Wrap" MaxWidth="560" HorizontalAlignment="Center" />
+                  </StackPanel>
+
+                  <StackPanel IsVisible="{Binding SelectedAttachmentIsDocument}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Spacing="10">
+                    <Border Width="78" Height="78" CornerRadius="24" Background="#F0ECFF" BorderBrush="#D8D0FF" BorderThickness="1">
+                      <TextBlock Text="DOC" Foreground="#5B45D6" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="Документ" Classes="h2" HorizontalAlignment="Center" />
+                    <TextBlock Text="{Binding SelectedAttachmentLocalPath}" Classes="muted" TextWrapping="Wrap" MaxWidth="560" HorizontalAlignment="Center" />
+                  </StackPanel>
+                </Grid>
+              </Border>
+
+              <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <TextBlock Text="{Binding SelectedAttachmentSizeText}" Classes="muted" VerticalAlignment="Center" />
+                <Button Grid.Column="1" Classes="primary" Content="Закрыть" Command="{Binding CloseAttachmentPreviewCommand}" />
+              </Grid>
+            </Grid>
+          </Border>
+        </Grid>
+      </Border>
+    </Grid>
+  </Border>
+</UserControl>

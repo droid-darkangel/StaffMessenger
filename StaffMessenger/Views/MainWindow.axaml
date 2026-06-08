@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:StaffMessenger.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:StaffMessenger.Views"
+        mc:Ignorable="d"
+        d:DesignWidth="1440"
+        d:DesignHeight="900"
+        x:Class="StaffMessenger.Views.MainWindow"
+        Icon="/Assets/staffmessenger-logo.png"
+        Title="StaffMessenger"
+        Width="1440"
+        Height="900"
+        MinWidth="1180"
+        MinHeight="760"
+        Background="Transparent"
+        TransparencyLevelHint="AcrylicBlur">
+        <views:MainView />
+</Window>

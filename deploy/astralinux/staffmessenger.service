@@ -1,0 +1,24 @@
+[Unit]
+Description=StaffMessenger server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=staffmessenger
+Group=staffmessenger
+WorkingDirectory=/var/lib/staffmessenger
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_BUNDLE_EXTRACT_BASE_DIR=/var/lib/staffmessenger/.net
+ExecStart=/opt/staffmessenger/StaffMessenger.Server --contentRoot /etc/staffmessenger
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadOnlyPaths=/etc/staffmessenger
+ReadWritePaths=/var/lib/staffmessenger
+
+[Install]
+WantedBy=multi-user.target

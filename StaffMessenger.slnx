@@ -1,0 +1,15 @@
+﻿<Solution>
+  <Project Path="StaffMessenger.Android/StaffMessenger.Android.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="StaffMessenger.Browser/StaffMessenger.Browser.csproj" />
+  <Project Path="StaffMessenger.BotSdk/StaffMessenger.BotSdk.csproj" />
+  <Project Path="StaffMessenger.Contracts/StaffMessenger.Contracts.csproj" />
+  <Project Path="StaffMessenger.Crypto/StaffMessenger.Crypto.csproj" />
+  <Project Path="StaffMessenger.Desktop/StaffMessenger.Desktop.csproj" />
+  <Project Path="StaffMessenger.Server/StaffMessenger.Server.csproj" />
+  <Project Path="StaffMessenger.iOS/StaffMessenger.iOS.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="StaffMessenger/StaffMessenger.csproj" />
+</Solution>

@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: staffmessenger-postgres
+    environment:
+      POSTGRES_DB: staff_messenger
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - staffmessenger-postgres:/var/lib/postgresql/data
+
+volumes:
+  staffmessenger-postgres:
