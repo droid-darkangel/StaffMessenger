@@ -77,15 +77,12 @@ and start the service with `sudo systemctl start staffmessenger`.
 After publishing a GitHub Release, install the latest server package with:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/OWNER/StaffMessenger/main/scripts/install-astralinux.sh \
-  | sudo env STAFFMESSENGER_REPOSITORY=OWNER/StaffMessenger bash
+curl -fsSL https://raw.githubusercontent.com/droid-darkangel/StaffMessenger/main/scripts/install-astralinux.sh \
+  | sudo bash
 ```
 
-Replace `OWNER` with your GitHub user or organization. To install a specific
-release, also pass `STAFFMESSENGER_VERSION=v0.1.0`. This direct `curl` command
-works without a token for public repositories. For a private repository,
-authenticate GitHub CLI and download the server archive with `gh release
-download` before running its `install.sh`.
+To install a specific release, pass `STAFFMESSENGER_VERSION=v0.1.0`. This
+direct `curl` command works without a token because the repository is public.
 
 For temporary installation before creating a GitHub repository, serve the
 project directory:

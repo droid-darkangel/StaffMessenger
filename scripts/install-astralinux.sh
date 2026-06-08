@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPOSITORY="${STAFFMESSENGER_REPOSITORY:-}"
+REPOSITORY="${STAFFMESSENGER_REPOSITORY:-droid-darkangel/StaffMessenger}"
 VERSION="${STAFFMESSENGER_VERSION:-latest}"
 ASSET_NAME="StaffMessenger-Server-astralinux-x64.tar.gz"
 DOWNLOAD_URL="${STAFFMESSENGER_DOWNLOAD_URL:-}"
