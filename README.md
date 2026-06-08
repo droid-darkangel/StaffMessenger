@@ -120,6 +120,29 @@ git push origin v0.1.0
 Use `public` instead of `private` when the unauthenticated `curl` installer
 must be available to everyone.
 
+## Timeweb Cloud App
+
+For Timeweb Cloud App Platform, use these application settings:
+
+- Build command: `dotnet publish --configuration Release --output ./publish`
+- Dependencies: leave empty
+- Run command: `dotnet ./StaffMessenger.Server/publish/StaffMessenger.Server.dll`
+- Project directory: `/StaffMessenger.Server`
+- Health check path: `/health`
+
+Required variables:
+
+```text
+ASPNETCORE_ENVIRONMENT=Production
+ConnectionStrings__Postgres=Host=HOST;Port=5432;Database=DATABASE;Username=USER;Password=PASSWORD;SSL Mode=Require;Trust Server Certificate=true
+Storage__UploadsPath=/tmp/staffmessenger/uploads
+Verification__ExposeDevelopmentCodes=false
+```
+
+The server reads Timeweb's `PORT` variable automatically and starts listening
+before PostgreSQL schema initialization finishes, so the platform health check
+can pass while database connection retries continue in the background.
+
 ## Crypto Boundary
 
 The entropy generator is quantum-inspired, not a software substitute for physical QRNG hardware. It keeps the operating-system CSPRNG as the root source, dynamically reseeds with timing jitter, and can mix an optional external entropy endpoint via `STAFFMESSENGER_ENTROPY_ENDPOINT`.

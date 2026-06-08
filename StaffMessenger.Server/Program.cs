@@ -12,12 +12,15 @@ using StaffMessenger.Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+ConfigureListeningUrls(builder);
+
 var connectionString = builder.Configuration.GetConnectionString("Postgres")
                        ?? Environment.GetEnvironmentVariable("STAFFMESSENGER_POSTGRES")
                        ?? new DatabaseOptions().ConnectionString;
 
 builder.Services.AddSingleton(NpgsqlDataSource.Create(connectionString));
 builder.Services.AddSingleton<DatabaseInitializer>();
+builder.Services.AddHostedService<DatabaseInitializationService>();
 builder.Services.AddScoped<MessengerRepository>();
 builder.Services.AddSingleton<IQuantumEntropyGenerator, QuantumInspiredEntropyGenerator>();
 builder.Services.AddSingleton<EnvelopeEncryptionService>();
@@ -45,8 +48,6 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-
-await InitializeDatabaseAsync(app);
 
 app.UseCors();
 app.Use(async (context, next) =>
@@ -115,33 +116,15 @@ app.MapHub<MessageHub>("/hubs/messages");
 
 app.Run();
 
-static async Task InitializeDatabaseAsync(WebApplication app)
+static void ConfigureListeningUrls(WebApplicationBuilder builder)
 {
-    var initializer = app.Services.GetRequiredService<DatabaseInitializer>();
-    var logger = app.Services.GetRequiredService<ILoggerFactory>().CreateLogger("DatabaseInitializer");
-
-    const int maxAttempts = 10;
-
-    for (var attempt = 1; attempt <= maxAttempts; attempt++)
+    var platformPort = Environment.GetEnvironmentVariable("PORT");
+    if (int.TryParse(platformPort, out var port) && port is > 0 and <= 65535)
     {
-        try
-        {
-            await initializer.InitializeAsync();
-            logger.LogInformation("PostgreSQL schema is ready.");
-            return;
-        }
-        catch (Exception exception) when (attempt < maxAttempts)
-        {
-            var delay = TimeSpan.FromSeconds(Math.Min(30, 2 * attempt));
-            logger.LogWarning(
-                exception,
-                "PostgreSQL initialization failed on attempt {Attempt}/{MaxAttempts}. Retrying in {DelaySeconds}s...",
-                attempt,
-                maxAttempts,
-                delay.TotalSeconds);
-            await Task.Delay(delay);
-        }
+        builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+        return;
     }
 
-    await initializer.InitializeAsync();
+    if (string.IsNullOrWhiteSpace(builder.Configuration["urls"]))
+        builder.WebHost.UseUrls("http://0.0.0.0:8080");
 }
