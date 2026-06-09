@@ -61,9 +61,7 @@ public sealed class MessengerApiClient : IAsyncDisposable
     {
         var response = await _httpClient.PostAsJsonAsync("/api/auth/login", request, JsonOptions, cancellationToken);
         if (response.StatusCode == System.Net.HttpStatusCode.Accepted)
-        {
             throw new TwoFactorRequiredException();
-        }
 
         response.EnsureSuccessStatusCode();
         var auth = await response.Content.ReadFromJsonAsync<AuthResponse>(JsonOptions, cancellationToken)

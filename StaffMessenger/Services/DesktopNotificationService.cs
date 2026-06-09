@@ -40,9 +40,7 @@ public static class DesktopNotificationService
         using var process = new Process();
         process.StartInfo.FileName = fileName;
         foreach (var argument in arguments)
-        {
             process.StartInfo.ArgumentList.Add(argument);
-        }
 
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
@@ -51,12 +49,8 @@ public static class DesktopNotificationService
     }
 
     private static string AppleScriptQuote(string value)
-    {
-        return "\"" + value.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\"";
-    }
+        => "\"" + value.Replace("\\", "\\\\", StringComparison.Ordinal).Replace("\"", "\\\"", StringComparison.Ordinal) + "\"";
 
     private static string PowerShellQuote(string value)
-    {
-        return "'" + value.Replace("'", "''", StringComparison.Ordinal) + "'";
-    }
+        => "'" + value.Replace("'", "''", StringComparison.Ordinal) + "'";
 }

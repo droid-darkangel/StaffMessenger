@@ -2,11 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffMessenger", "StaffMessenger\StaffMessenger.csproj", "{773BDAD3-E5C5-4EB4-B5D6-C7B706578895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffMessenger.Android", "StaffMessenger.Android\StaffMessenger.Android.csproj", "{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffMessenger.Desktop", "StaffMessenger.Desktop\StaffMessenger.Desktop.csproj", "{F375171C-9D9A-4947-B846-177FD4776996}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffMessenger.iOS", "StaffMessenger.iOS\StaffMessenger.iOS.csproj", "{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaffMessenger.Browser", "StaffMessenger.Browser\StaffMessenger.Browser.csproj", "{06155115-6982-4F08-B69D-CC3533EC96B6}"
 EndProject
@@ -40,20 +36,6 @@ Global
 		{773BDAD3-E5C5-4EB4-B5D6-C7B706578895}.Release|x64.Build.0 = Release|Any CPU
 		{773BDAD3-E5C5-4EB4-B5D6-C7B706578895}.Release|x86.ActiveCfg = Release|Any CPU
 		{773BDAD3-E5C5-4EB4-B5D6-C7B706578895}.Release|x86.Build.0 = Release|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Debug|x64.Build.0 = Debug|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Debug|x86.Build.0 = Debug|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Release|x64.ActiveCfg = Release|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Release|x64.Build.0 = Release|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Release|x86.ActiveCfg = Release|Any CPU
-		{0FB938A4-2F8C-4DFF-8E53-5E84B061C357}.Release|x86.Build.0 = Release|Any CPU
 		{F375171C-9D9A-4947-B846-177FD4776996}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F375171C-9D9A-4947-B846-177FD4776996}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F375171C-9D9A-4947-B846-177FD4776996}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -66,20 +48,6 @@ Global
 		{F375171C-9D9A-4947-B846-177FD4776996}.Release|x64.Build.0 = Release|Any CPU
 		{F375171C-9D9A-4947-B846-177FD4776996}.Release|x86.ActiveCfg = Release|Any CPU
 		{F375171C-9D9A-4947-B846-177FD4776996}.Release|x86.Build.0 = Release|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Debug|x64.Build.0 = Debug|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Debug|x86.Build.0 = Debug|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Release|x64.ActiveCfg = Release|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Release|x64.Build.0 = Release|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Release|x86.ActiveCfg = Release|Any CPU
-		{93E43E45-09A7-4D41-B0A9-FDD22BA992CD}.Release|x86.Build.0 = Release|Any CPU
 		{06155115-6982-4F08-B69D-CC3533EC96B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{06155115-6982-4F08-B69D-CC3533EC96B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06155115-6982-4F08-B69D-CC3533EC96B6}.Debug|x64.ActiveCfg = Debug|Any CPU

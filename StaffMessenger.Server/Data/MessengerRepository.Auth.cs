@@ -34,9 +34,7 @@ public sealed partial class MessengerRepository
         }
 
         if (request.DeviceKey is not null)
-        {
             await UpsertDeviceKeyAsync(connection, tx, id, request.DeviceKey, cancellationToken);
-        }
 
         await InsertAuthIdentityAsync(
             connection,
@@ -103,9 +101,7 @@ public sealed partial class MessengerRepository
     public async Task<AuthIdentityRecord?> FindIdentityByVerifiedEmailAsync(
         string email,
         CancellationToken cancellationToken = default)
-    {
-        return await FindIdentityAsync(AuthProvider.Email, email, cancellationToken);
-    }
+        => await FindIdentityAsync(AuthProvider.Email, email, cancellationToken);
 
     public async Task LinkIdentityAsync(
         Guid userId,
@@ -154,9 +150,7 @@ public sealed partial class MessengerRepository
             count.Parameters.AddWithValue("user_id", userId);
             var linkedCount = (long)(await count.ExecuteScalarAsync(cancellationToken) ?? 0L);
             if (linkedCount <= 1)
-            {
                 throw new InvalidOperationException("At least one login method must stay linked.");
-            }
         }
 
         await using (var delete = new NpgsqlCommand(deleteSql, connection, tx))
@@ -339,9 +333,7 @@ public sealed partial class MessengerRepository
 
         await using var reader = await command.ExecuteReaderAsync(cancellationToken);
         if (!await reader.ReadAsync(cancellationToken))
-        {
             return null;
-        }
 
         return new PrincipalRecord(
             reader.IsDBNull(0) ? null : reader.GetGuid(0),
@@ -478,9 +470,7 @@ public sealed partial class MessengerRepository
 
         await using var reader = await command.ExecuteReaderAsync(cancellationToken);
         if (!await reader.ReadAsync(cancellationToken))
-        {
             return null;
-        }
 
         var profile = new UserProfileDto(
             reader.GetGuid(0),
@@ -850,9 +840,7 @@ public sealed partial class MessengerRepository
         command.Parameters.AddWithValue("password_hash", DbValue(passwordHash));
         var inserted = await command.ExecuteScalarAsync(cancellationToken);
         if (inserted is Guid)
-        {
             return;
-        }
 
         const string existingSql = """
             select user_id
@@ -866,9 +854,7 @@ public sealed partial class MessengerRepository
         existing.Parameters.AddWithValue("identifier", identifier.ToLowerInvariant());
         var existingUserId = await existing.ExecuteScalarAsync(cancellationToken);
         if (existingUserId is not Guid linkedUserId || linkedUserId != userId)
-        {
             throw new InvalidOperationException("Identity is already linked to another profile.");
-        }
 
         const string updateSql = """
             update auth_identities
@@ -899,9 +885,7 @@ public sealed partial class MessengerRepository
                 .Replace(")", "", StringComparison.Ordinal);
 
             if (value.StartsWith('8') && value.Length == 11)
-            {
                 value = $"+7{value[1..]}";
-            }
         }
 
         return provider == AuthProvider.Email ? value.ToLowerInvariant() : value;

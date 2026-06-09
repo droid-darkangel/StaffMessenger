@@ -104,9 +104,7 @@ public static class ConversationEndpoints
         {
             var principal = context.GetPrincipal();
             if (principal?.UserId is null)
-            {
                 return Results.Unauthorized();
-            }
 
             await repository.MarkReadAsync(conversationId, principal.UserId.Value, cancellationToken);
             return Results.NoContent();
@@ -149,14 +147,10 @@ public static class ConversationEndpoints
                         ?? Environment.GetEnvironmentVariable("STAFFMESSENGER_BROADCAST_TOKEN");
             var provided = context.Request.Headers["X-StaffMessenger-Admin-Token"].ToString();
             if (string.IsNullOrWhiteSpace(token) || !string.Equals(token, provided, StringComparison.Ordinal))
-            {
                 return Results.Unauthorized();
-            }
 
             if (string.IsNullOrWhiteSpace(request.Text))
-            {
                 return Results.BadRequest(new { error = "Announcement text is required." });
-            }
 
             await repository.BroadcastAnnouncementAsync(request.Text.Trim(), cancellationToken);
             return Results.NoContent();

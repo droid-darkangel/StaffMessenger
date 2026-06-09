@@ -24,14 +24,10 @@ public partial class MainView : UserControl
     private void AttachViewModel(MainViewModel? viewModel)
     {
         if (_viewModel is not null)
-        {
             _viewModel.PropertyChanged -= ViewModel_OnPropertyChanged;
-        }
 
         if (_messagesCollection is not null)
-        {
             _messagesCollection.CollectionChanged -= MessagesCollection_OnCollectionChanged;
-        }
 
         _viewModel = viewModel;
 
@@ -69,21 +65,15 @@ public partial class MainView : UserControl
     private void AttachMessagesCollection()
     {
         if (_messagesCollection is not null)
-        {
             _messagesCollection.CollectionChanged -= MessagesCollection_OnCollectionChanged;
-        }
 
         _messagesCollection = _viewModel?.ActiveMessages;
         if (_messagesCollection is not null)
-        {
             _messagesCollection.CollectionChanged += MessagesCollection_OnCollectionChanged;
-        }
     }
 
     private void MessagesCollection_OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        QueueMessagesScrollToEnd();
-    }
+        => QueueMessagesScrollToEnd();
 
     private void QueueMessagesScrollToEnd()
     {

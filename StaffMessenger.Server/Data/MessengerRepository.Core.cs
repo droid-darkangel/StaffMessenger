@@ -12,9 +12,7 @@ public sealed partial class MessengerRepository
     private readonly NpgsqlDataSource _dataSource;
 
     public MessengerRepository(NpgsqlDataSource dataSource)
-    {
-        _dataSource = dataSource;
-    }
+        => _dataSource = dataSource;
 
     public async Task<bool> IsConversationMemberAsync(Guid conversationId, Guid userId, CancellationToken cancellationToken = default)
     {
@@ -70,14 +68,10 @@ public sealed partial class MessengerRepository
     }
 
     private static ConversationKind ReadConversationKind(string value)
-    {
-        return Enum.TryParse<ConversationKind>(value, true, out var kind) ? kind : ConversationKind.Group;
-    }
+        => Enum.TryParse<ConversationKind>(value, true, out var kind) ? kind : ConversationKind.Group;
 
     private static AttachmentKind ReadAttachmentKind(string value)
-    {
-        return Enum.TryParse<AttachmentKind>(value, true, out var kind) ? kind : AttachmentKind.File;
-    }
+        => Enum.TryParse<AttachmentKind>(value, true, out var kind) ? kind : AttachmentKind.File;
 
     private static DateTimeOffset ReadInstant(NpgsqlDataReader reader, int ordinal)
     {
@@ -86,18 +80,12 @@ public sealed partial class MessengerRepository
     }
 
     private static object DbValue<T>(T? value)
-    {
-        return value is null ? DBNull.Value : value;
-    }
+        => value is null ? DBNull.Value : value;
 
     private static string NormalizeHandle(string handle)
-    {
-        return handle.Trim().TrimStart('@').ToLowerInvariant();
-    }
+        => handle.Trim().TrimStart('@').ToLowerInvariant();
 
     private static CryptoEnvelope ReadEnvelope(string json)
-    {
-        return JsonSerializer.Deserialize<CryptoEnvelope>(json, JsonOptions)
+        => JsonSerializer.Deserialize<CryptoEnvelope>(json, JsonOptions)
                ?? throw new InvalidOperationException("Message crypto envelope is empty.");
-    }
 }

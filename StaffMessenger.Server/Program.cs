@@ -96,7 +96,7 @@ app.MapGet("/health", (IQuantumEntropyGenerator entropy) => Results.Ok(new
 
 app.MapGet("/api/app/info", (IConfiguration configuration) =>
 {
-    const string currentVersion = "0.1.0-enterprise-preview";
+    const string currentVersion = "0.1.3";
     var latestVersion = configuration["Updates:LatestVersion"] ?? currentVersion;
     return Results.Ok(new AppUpdateInfoDto(
         "NewSunshine StaffMessenger",

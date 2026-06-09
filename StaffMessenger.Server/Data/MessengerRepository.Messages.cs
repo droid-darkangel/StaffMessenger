@@ -60,9 +60,7 @@ public sealed partial class MessengerRepository
         CancellationToken cancellationToken = default)
     {
         if (!await IsConversationMemberAsync(conversationId, userId, cancellationToken))
-        {
             throw new UnauthorizedAccessException("User is not a member of the conversation.");
-        }
 
         const string sql = """
             select m.id,
@@ -98,9 +96,7 @@ public sealed partial class MessengerRepository
 
         await using var reader = await command.ExecuteReaderAsync(cancellationToken);
         while (await reader.ReadAsync(cancellationToken))
-        {
             messages.Add(ReadMessage(reader, []));
-        }
 
         await reader.DisposeAsync();
 
@@ -123,9 +119,7 @@ public sealed partial class MessengerRepository
         CancellationToken cancellationToken = default)
     {
         if (!await IsConversationMemberAsync(conversationId, userId, cancellationToken))
-        {
             throw new UnauthorizedAccessException("User is not a member of the conversation.");
-        }
 
         await using var connection = await _dataSource.OpenConnectionAsync(cancellationToken);
 

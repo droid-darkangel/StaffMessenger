@@ -194,11 +194,9 @@ public static class AuthEndpoints
             if (!ValidateTotpIfNeeded(identity, request.TotpCode, totpService))
             {
                 if (identity.TwoFactorEnabled && string.IsNullOrWhiteSpace(request.TotpCode))
-                {
                     return Results.Accepted(value: new TwoFactorRequiredResponse(
                         true,
                         "Yandex accepted. One-time 2FA PIN is required."));
-                }
 
                 return Results.Unauthorized();
             }
@@ -280,11 +278,9 @@ public static class AuthEndpoints
                 return Results.Unauthorized();
 
             if (identity.TwoFactorEnabled && string.IsNullOrWhiteSpace(request.TotpCode))
-            {
                 return Results.Accepted(value: new TwoFactorRequiredResponse(
                     true,
                     "Password accepted. One-time 2FA PIN is required."));
-            }
 
             if (!ValidateTotpIfNeeded(identity, request.TotpCode, totpService))
                 return Results.Unauthorized();
@@ -770,9 +766,7 @@ public static class AuthEndpoints
     {
         var identity = await repository.FindIdentityAsync(AuthProvider.YandexId, identifier, cancellationToken);
         if (identity is not null)
-        {
             return identity;
-        }
 
         if (EmailRegex.IsMatch(identifier))
         {
@@ -849,9 +843,7 @@ public static class AuthEndpoints
     }
 
     private static bool IsPasswordProvider(AuthProvider provider)
-    {
-        return provider is AuthProvider.Email or AuthProvider.Phone;
-    }
+        => provider is AuthProvider.Email or AuthProvider.Phone;
 
     private static bool IsIdentifierValid(AuthProvider provider, string identifier)
     {
@@ -876,9 +868,7 @@ public static class AuthEndpoints
                 .Replace(")", "", StringComparison.Ordinal);
 
             if (value.StartsWith('8') && value.Length == 11)
-            {
                 value = $"+7{value[1..]}";
-            }
         }
 
         return provider == AuthProvider.Email ? value.ToLowerInvariant() : value;

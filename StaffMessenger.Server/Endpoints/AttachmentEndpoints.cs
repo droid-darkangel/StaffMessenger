@@ -20,16 +20,12 @@ public static class  AttachmentEndpoints
         {
             var principal = context.GetPrincipal();
             if (principal?.UserId is null)
-            {
                 return Results.Unauthorized();
-            }
 
             var form = await context.Request.ReadFormAsync(cancellationToken);
             var file = form.Files["file"];
             if (file is null)
-            {
                 return Results.BadRequest(new { error = "Multipart field 'file' is required." });
-            }
 
             var kind = Enum.TryParse<AttachmentKind>(form["kind"], true, out var parsedKind)
                 ? parsedKind
@@ -63,15 +59,11 @@ public static class  AttachmentEndpoints
             CancellationToken cancellationToken) =>
         {
             if (context.GetPrincipal() is null)
-            {
                 return Results.Unauthorized();
-            }
 
             var attachment = await repository.GetStoredAttachmentAsync(attachmentId, cancellationToken);
             if (attachment is null || !File.Exists(attachment.StoragePath))
-            {
                 return Results.NotFound();
-            }
 
             return Results.File(
                 attachment.StoragePath,

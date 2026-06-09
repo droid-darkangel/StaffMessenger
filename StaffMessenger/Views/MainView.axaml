@@ -320,7 +320,7 @@
             </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Center">
               <TextBlock Text="StaffMessenger" Classes="h1" />
-              <TextBlock Text="Войдите один раз. Сессия сохранится локально." Classes="muted" TextWrapping="Wrap" />
+              <TextBlock Text="Требуется вход." Classes="muted" TextWrapping="Wrap" />
             </StackPanel>
           </Grid>
 
@@ -847,7 +847,7 @@
           <Grid ColumnDefinitions="*,Auto" ColumnSpacing="16" Margin="28,24,28,18">
             <StackPanel VerticalAlignment="Center">
               <TextBlock Text="Настройки" Classes="h1" />
-              <TextBlock Text="Профиль, аккаунт, приватность и внешний вид приложения." Classes="muted" />
+              <TextBlock Text="Профиль." Classes="muted" />
             </StackPanel>
             <Button Grid.Column="1" Classes="primary" Content="Вернуться в чат" Command="{Binding CloseSettingsCommand}" />
           </Grid>
@@ -886,7 +886,7 @@
                   <StackPanel Spacing="8">
                     <TextBlock Text="Общие" Classes="micro" FontWeight="SemiBold" />
                     <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Аккаунт">
-                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="⌘" Width="22" /><TextBlock Text="Аккаунт и способы входа" /></StackPanel>
+                      <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="⌘" Width="22" /><TextBlock Text="Аккаунт" /></StackPanel>
                     </Button>
                     <Button Classes="tool" HorizontalContentAlignment="Stretch" Command="{Binding SelectSettingsSectionCommand}" CommandParameter="Интерфейс">
                       <StackPanel Orientation="Horizontal" Spacing="10"><TextBlock Text="◐" Width="22" /><TextBlock Text="Интерфейс" /></StackPanel>
@@ -1108,7 +1108,7 @@
                     <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
                       <StackPanel>
                         <TextBlock Text="Открытые сессии" Classes="h2" />
-                        <TextBlock Text="Устройства и активные токены аккаунта." Classes="muted" />
+                        <TextBlock Text="Устройства." Classes="muted" />
                       </StackPanel>
                       <Button Grid.Column="1" Classes="tool" Content="Обновить" Command="{Binding LoadSessionsCommand}" />
                     </Grid>

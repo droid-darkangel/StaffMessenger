@@ -7,9 +7,7 @@ public sealed class DatabaseInitializer
     private readonly NpgsqlDataSource _dataSource;
 
     public DatabaseInitializer(NpgsqlDataSource dataSource)
-    {
-        _dataSource = dataSource;
-    }
+        => _dataSource = dataSource;
 
     public async Task InitializeAsync(CancellationToken cancellationToken = default)
     {

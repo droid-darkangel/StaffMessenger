@@ -62,9 +62,7 @@ public sealed class YandexOAuthService
     {
         var clientId = _configuration["Authentication:Yandex:ClientId"];
         if (string.IsNullOrWhiteSpace(clientId) || clientId.StartsWith("<", StringComparison.Ordinal))
-        {
             throw new InvalidOperationException("Yandex OAuth client id is not configured.");
-        }
 
         var scope = _configuration["Authentication:Yandex:Scope"] ?? "login:info login:email";
         using var content = new FormUrlEncodedContent(new Dictionary<string, string>
@@ -95,9 +93,7 @@ public sealed class YandexOAuthService
         var clientId = _configuration["Authentication:Yandex:ClientId"];
         var clientSecret = _configuration["Authentication:Yandex:ClientSecret"];
         if (string.IsNullOrWhiteSpace(clientId) || string.IsNullOrWhiteSpace(clientSecret))
-        {
             throw new InvalidOperationException("Yandex OAuth is not configured.");
-        }
 
         using var content = new FormUrlEncodedContent(new Dictionary<string, string>
         {
@@ -112,9 +108,7 @@ public sealed class YandexOAuthService
         {
             var error = await response.Content.ReadFromJsonAsync<YandexOAuthError>(cancellationToken: cancellationToken);
             if (string.Equals(error?.Error, "authorization_pending", StringComparison.OrdinalIgnoreCase))
-            {
                 throw new YandexAuthorizationPendingException();
-            }
 
             throw new HttpRequestException($"Yandex OAuth token request failed: {error?.Error ?? response.StatusCode.ToString()}");
         }

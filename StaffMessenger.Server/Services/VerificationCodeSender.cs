@@ -133,9 +133,7 @@ public sealed class VerificationCodeSender : IVerificationCodeSender
         await smtp.ConnectAsync(host, port, secureSocketOptions, cancellationToken);
 
         if (!string.IsNullOrWhiteSpace(username))
-        {
             await smtp.AuthenticateAsync(username, password, cancellationToken);
-        }
 
         await smtp.SendAsync(message, cancellationToken);
         await smtp.DisconnectAsync(true, cancellationToken);
@@ -175,9 +173,7 @@ public sealed class VerificationCodeSender : IVerificationCodeSender
     private void DevelopmentFallback(AuthProvider provider, string identifier, string code)
     {
         if (!_configuration.GetValue("Verification:ExposeDevelopmentCodes", false))
-        {
             throw new InvalidOperationException("Verification delivery provider is not configured.");
-        }
 
         _logger.LogInformation(
             "Development verification code for {Provider} {Identifier}: {Code}",

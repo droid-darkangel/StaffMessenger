@@ -24,16 +24,12 @@ public sealed class StaffMessengerBotClient : IAsyncDisposable
     public event Func<MessageCreatedEvent, Task>? MessageCreated;
 
     public async Task<BotApiCapabilities> GetCapabilitiesAsync(CancellationToken cancellationToken = default)
-    {
-        return await _httpClient.GetFromJsonAsync<BotApiCapabilities>("/api/bots/capabilities", cancellationToken)
+        => await _httpClient.GetFromJsonAsync<BotApiCapabilities>("/api/bots/capabilities", cancellationToken)
                ?? throw new InvalidOperationException("Server returned empty bot capabilities.");
-    }
 
     public async Task<IReadOnlyList<BotConversationDto>> GetConversationsAsync(CancellationToken cancellationToken = default)
-    {
-        return await _httpClient.GetFromJsonAsync<IReadOnlyList<BotConversationDto>>("/api/bots/conversations", cancellationToken)
+        => await _httpClient.GetFromJsonAsync<IReadOnlyList<BotConversationDto>>("/api/bots/conversations", cancellationToken)
                ?? [];
-    }
 
     public async Task JoinApiConversationAsync(Guid conversationId, CancellationToken cancellationToken = default)
     {
@@ -45,12 +41,10 @@ public sealed class StaffMessengerBotClient : IAsyncDisposable
         Guid conversationId,
         int limit = 80,
         CancellationToken cancellationToken = default)
-    {
-        return await _httpClient.GetFromJsonAsync<IReadOnlyList<MessageDto>>(
+        => await _httpClient.GetFromJsonAsync<IReadOnlyList<MessageDto>>(
                    $"/api/bots/conversations/{conversationId:D}/messages?limit={limit}",
                    cancellationToken)
                ?? [];
-    }
 
     public async Task<MessageDto> SendTextAsync(
         Guid conversationId,
@@ -68,9 +62,7 @@ public sealed class StaffMessengerBotClient : IAsyncDisposable
     public async Task ConnectRealtimeAsync(CancellationToken cancellationToken = default)
     {
         if (_hubConnection is not null)
-        {
             return;
-        }
 
         var hubUri = new Uri(_httpClient.BaseAddress!, "/hubs/messages");
         _hubConnection = new HubConnectionBuilder()
@@ -81,9 +73,7 @@ public sealed class StaffMessengerBotClient : IAsyncDisposable
         _hubConnection.On<MessageCreatedEvent>("message.created", async payload =>
         {
             if (MessageCreated is not null)
-            {
                 await MessageCreated(payload);
-            }
         });
 
         await _hubConnection.StartAsync(cancellationToken);
@@ -92,9 +82,7 @@ public sealed class StaffMessengerBotClient : IAsyncDisposable
     public async Task JoinConversationAsync(Guid conversationId, CancellationToken cancellationToken = default)
     {
         if (_hubConnection is null)
-        {
             await ConnectRealtimeAsync(cancellationToken);
-        }
 
         await _hubConnection!.InvokeAsync("JoinConversation", conversationId, cancellationToken);
     }
@@ -102,9 +90,7 @@ public sealed class StaffMessengerBotClient : IAsyncDisposable
     public async ValueTask DisposeAsync()
     {
         if (_hubConnection is not null)
-        {
             await _hubConnection.DisposeAsync();
-        }
 
         _httpClient.Dispose();
     }

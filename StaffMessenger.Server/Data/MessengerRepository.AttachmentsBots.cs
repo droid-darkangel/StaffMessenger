@@ -62,9 +62,7 @@ public sealed partial class MessengerRepository
 
         await using var reader = await command.ExecuteReaderAsync(cancellationToken);
         if (!await reader.ReadAsync(cancellationToken))
-        {
             throw new InvalidOperationException("Attachment was not saved.");
-        }
 
         return ReadAttachment(reader);
     }
@@ -263,9 +261,7 @@ public sealed partial class MessengerRepository
         CancellationToken cancellationToken = default)
     {
         if (!await IsBotConversationMemberAsync(botId, conversationId, cancellationToken))
-        {
             throw new UnauthorizedAccessException("Bot is not a member of the conversation.");
-        }
 
         const string sql = """
             select m.id,

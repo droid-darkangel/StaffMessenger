@@ -80,19 +80,13 @@ public sealed partial class MessengerRepository
             var title = conversation.Title;
 
             if (conversation.Kind == ConversationKind.Saved)
-            {
                 title = "Сохраненные сообщения";
-            }
             else if (conversation.Kind == ConversationKind.Announcement)
-            {
                 title = "NewSunshine";
-            }
             else if (conversation.Kind == ConversationKind.Direct && string.IsNullOrWhiteSpace(title))
-            {
                 title = members.FirstOrDefault(member => member.UserId != userId)?.DisplayName
                         ?? members.FirstOrDefault()?.DisplayName
                         ?? "Direct";
-            }
 
             hydrated.Add(conversation with { Title = title, Members = members });
         }
@@ -184,19 +178,13 @@ public sealed partial class MessengerRepository
         var title = conversation.Title;
 
         if (conversation.Kind == ConversationKind.Saved)
-        {
             title = "Сохраненные сообщения";
-        }
         else if (conversation.Kind == ConversationKind.Announcement)
-        {
             title = "NewSunshine";
-        }
         else if (conversation.Kind == ConversationKind.Direct && string.IsNullOrWhiteSpace(title))
-        {
             title = members.FirstOrDefault(member => member.UserId != userId)?.DisplayName
                     ?? members.FirstOrDefault()?.DisplayName
                     ?? "Direct";
-        }
 
         return conversation with { Title = title, Members = members };
     }
@@ -262,10 +250,8 @@ public sealed partial class MessengerRepository
             find.Parameters.AddWithValue("user_id", userId);
             var existing = await find.ExecuteScalarAsync(cancellationToken);
             if (existing is Guid existingId)
-            {
                 return await GetConversationAsync(connection, existingId, userId, cancellationToken)
                        ?? throw new InvalidOperationException("Saved conversation could not be loaded.");
-            }
         }
 
         var conversationId = Guid.NewGuid();
@@ -297,10 +283,8 @@ public sealed partial class MessengerRepository
             find.Parameters.AddWithValue("user_id", userId);
             var existing = await find.ExecuteScalarAsync(cancellationToken);
             if (existing is Guid existingId)
-            {
                 return await GetConversationAsync(connection, existingId, userId, cancellationToken)
                        ?? throw new InvalidOperationException("Announcement conversation could not be loaded.");
-            }
         }
 
         var conversationId = Guid.NewGuid();
@@ -330,9 +314,7 @@ public sealed partial class MessengerRepository
         await using (var reader = await users.ExecuteReaderAsync(cancellationToken))
         {
             while (await reader.ReadAsync(cancellationToken))
-            {
                 userIds.Add(reader.GetGuid(0));
-            }
         }
 
         foreach (var userId in userIds)

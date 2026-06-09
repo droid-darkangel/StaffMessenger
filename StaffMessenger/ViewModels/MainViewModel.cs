@@ -92,7 +92,7 @@ public partial class MainViewModel : ViewModelBase
 
     public ObservableCollection<SessionItem> ActiveSessions { get; } = new();
 
-    public ObservableCollection<string> ChatThemeOptions { get; } = new(["Светлая", "Темная", "Системная", "Контрастная"]);
+    public ObservableCollection<string> ChatThemeOptions { get; } = new(["Светлая", "Темная", "Системная"]);
 
     public ObservableCollection<string> BubbleDensityOptions { get; } = new(["Компактная", "Комфортная", "Просторная"]);
 
@@ -477,9 +477,9 @@ public partial class MainViewModel : ViewModelBase
 
     [ObservableProperty] private string _yandexQrStatus = "YandexID привязывается через QR-код и подтверждение на стороне Яндекса.";
 
-    [ObservableProperty] private string _appProductName = "NewSunshine StaffMessenger";
+    [ObservableProperty] private string _appProductName = "StaffMessenger";
 
-    [ObservableProperty] private string _appVersion = "0.1.0-enterprise-preview";
+    [ObservableProperty] private string _appVersion = "0.1.3";
 
     [ObservableProperty] private string _updateStatus = "Проверка обновлений не выполнялась";
 
@@ -597,9 +597,7 @@ public partial class MainViewModel : ViewModelBase
     private async Task SignIn()
     {
         if (!ValidateAuthInput())
-        {
             return;
-        }
 
         await CompleteServerSignInAsync(false);
     }
@@ -608,9 +606,7 @@ public partial class MainViewModel : ViewModelBase
     private async Task Register()
     {
         if (!ValidateAuthInput())
-        {
             return;
-        }
 
         await CompleteServerSignInAsync(true);
     }
@@ -801,7 +797,7 @@ public partial class MainViewModel : ViewModelBase
         {
             IsTotpStepVisible = true;
             AuthTotpCode = "";
-            AuthStatus = "Пароль верный. Введите одноразовый PIN 2FA.";
+            AuthStatus = "Введите одноразовый PIN 2FA.";
             NetworkStatus = "Ожидание 2FA";
         }
         catch (InvalidOperationException exception)
@@ -817,7 +813,7 @@ public partial class MainViewModel : ViewModelBase
         {
             var profile = await _apiClient.GetProfileAsync();
             ApplyServerProfile(profile);
-            ProfileStatus = "Профиль загружен из PostgreSQL";
+            ProfileStatus = "Профиль загружен";
             NetworkStatus = "Профиль синхронизирован";
             await LoadServerConversationsAsync();
             await _apiClient.ConnectRealtimeAsync();
@@ -1410,9 +1406,7 @@ public partial class MainViewModel : ViewModelBase
             var sessions = await _apiClient.GetSessionsAsync();
             ActiveSessions.Clear();
             foreach (var session in sessions)
-            {
                 ActiveSessions.Add(SessionItem.FromDto(session));
-            }
 
             OnPropertyChanged(nameof(HasActiveSessions));
             NetworkStatus = "Сессии загружены";
@@ -1517,9 +1511,7 @@ public partial class MainViewModel : ViewModelBase
             {
                 await Task.Delay(TimeSpan.FromMinutes(14), cancellationToken);
                 if (!IsAuthenticated || _apiClient.AccessToken is null)
-                {
                     continue;
-                }
 
                 var auth = await _apiClient.RefreshSessionAsync(cancellationToken);
                 SaveToken(auth.AccessToken);
@@ -1543,9 +1535,7 @@ public partial class MainViewModel : ViewModelBase
 
     [RelayCommand]
     private void ToggleEmojiPalette()
-    {
-        IsEmojiPaletteOpen = !IsEmojiPaletteOpen;
-    }
+        => IsEmojiPaletteOpen = !IsEmojiPaletteOpen;
 
     [RelayCommand]
     private async Task AddPhotoAttachment()
@@ -1759,9 +1749,7 @@ public partial class MainViewModel : ViewModelBase
 
     [RelayCommand]
     private void SelectConversation(ConversationItem conversation)
-    {
-        SelectedConversation = conversation;
-    }
+        => SelectedConversation = conversation;
 
     [RelayCommand]
     private async Task ChangeProfilePhoto()
@@ -1779,9 +1767,7 @@ public partial class MainViewModel : ViewModelBase
 
         var file = files.FirstOrDefault();
         if (file is null)
-        {
             return;
-        }
 
         await using var stream = await file.OpenReadAsync();
         ProfileAvatar = new Bitmap(stream);
@@ -1843,9 +1829,7 @@ public partial class MainViewModel : ViewModelBase
         {
             await Task.Delay(260, cancellationToken);
             if (_apiClient.AccessToken is null)
-            {
                 return;
-            }
 
             var users = await _apiClient.SearchUsersAsync(query, cancellationToken);
             SearchResults.Clear();
@@ -2360,9 +2344,7 @@ public partial class MainViewModel : ViewModelBase
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
                 out var date))
-        {
             return (false, "Введите дату в формате 04.06.1992");
-        }
 
         var today = DateOnly.FromDateTime(DateTime.Today);
         if (date > today)
@@ -2436,17 +2418,6 @@ public partial class MainViewModel : ViewModelBase
                 "#E6F2FF",
                 "#177DDC",
                 "#DDE6EF"),
-            "Контрастная" => new ThemeColors(
-                "#FFFDF7",
-                "#EFF8FF",
-                "#F5FFF6",
-                "#F8FFFFFF",
-                "#FFFFFF",
-                "#FFFFFFFF",
-                "#FFFFFF",
-                "#FFE0B2",
-                "#0B57D0",
-                "#B6C7DA"),
             _ => new ThemeColors(
                 "#F4F8FB",
                 "#EDF5F1",
@@ -2541,15 +2512,6 @@ public partial class MainViewModel : ViewModelBase
         yield return new EmojiOption("👀", "eyes");
         yield return new EmojiOption("🤝", "team");
         yield return new EmojiOption("💡", "idea");
-    }
-
-    private static IEnumerable<ProfileSearchResult> CreateDemoProfiles()
-    {
-        yield return new ProfileSearchResult(Guid.Parse("21746da4-40a6-4ba6-9537-97a7c0285a38"), "Anna Petrova", "anna", "Security analyst", "AP", "#7C5CFF");
-        yield return new ProfileSearchResult(Guid.Parse("15f687ea-5109-4350-932e-cecd1c8cb83f"), "Dmitry Volkov", "dmitry", "Backend engineer", "DV", "#28B7A6");
-        yield return new ProfileSearchResult(Guid.Parse("013210ba-2f1d-47cb-a020-2c3b91cb638a"), "Maria Sokolova", "maria", "Product owner", "MS", "#EF6C8E");
-        yield return new ProfileSearchResult(Guid.Parse("0881cf73-a56a-47cb-8e10-a30245875325"), "Release Bot Owner", "release-owner", "DevOps lead", "RO", "#FFB44A");
-        yield return new ProfileSearchResult(Guid.Parse("07167345-f97a-4cd7-87da-bf28012c9b7d"), "Ivan Orlov", "ivan", "Support manager", "IO", "#2563EB");
     }
 
     private sealed record ThemeColors(

@@ -29,9 +29,7 @@ public sealed class ApiTokenAuthenticationMiddleware
                     principal.ExpiresAt));
 
                 if (principal.SessionId is not null)
-                {
                     await repository.TouchSessionAsync(principal.SessionId.Value, context.RequestAborted);
-                }
             }
         }
 
